@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Piedra&display=swap");
+
+.fit-image {
+  margin-top: 15%;
+  width: 80%;
+  height: 60%;
+  margin-bottom: 15%;
+  margin-left: 10%;
+  opacity: 0.5;
+}
+
+.add {
+  margin-left: 45%;
+  margin-top: 5%;
+}
+.box {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-circle.btn-md {
+  width: 50px;
+  height: 50px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 10px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.box .text {
+  position: absolute;
+  z-index: 999;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 2em;
+  left: 0;
+  right: 0;
+  top: 40%; /* Adjust this value to move the positioned div up and down */
+  text-align: center;
+  width: 60%; /* Set the width of the positioned div */
+  font-family: "Bree Serif", serif;
+  letter-spacing: 0.2em;
+}
+
+img:hover {
+  opacity: 1;
+}
