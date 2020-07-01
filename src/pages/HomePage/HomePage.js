@@ -10,15 +10,19 @@ import Col from "react-bootstrap/Col";
 import "./HomePage.css";
 import Button from "react-bootstrap/Button";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { selectToken } from "../../store/user/selectors";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUser);
   const { trips } = useSelector(selectTripsOfUser);
+  const history = useHistory();
+  const token = useSelector(selectToken);
+
   console.log("trips : ", trips);
   useEffect(() => {
     if (id !== undefined) {
-      dispatch(fetchAllTrips(id));
+      dispatch(fetchAllTrips(id, token));
     }
   }, [id]);
 
@@ -26,7 +30,11 @@ export default function HomePage() {
     <div className="Homepage">
       <div className="add">
         Add trip
-        <button type="button" class="btn btn-primary btn-circle btn-md">
+        <button
+          onClick={() => history.push("/home/addtrip")}
+          type="button"
+          className="btn btn-primary btn-circle btn-md"
+        >
           <strong style={{ fontSize: "2em" }}>+</strong>
         </button>
       </div>

@@ -1,0 +1,20 @@
+.expense {
+  text-align: center;
+  margin: 10%;
+}
+
+.cont {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 0 0 10px 8px #b1a966;
+  min-height: 80vh;
+  box-sizing: border-box;
+}
+
+.col-detail {
+  margin-bottom: 15px;
+}
+
+.addExpense {
+  margin-top: 60px;
+}
