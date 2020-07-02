@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import TripDetails from "./pages/TripDetails/TripDetails";
 import AddTrip from "./pages/AddTrip/AddTrip";
 import AddExpense from "./pages/AddExpense/AddExpense";
+import Statistics from "./pages/Statistics/Statistics";
 
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -31,6 +32,7 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
+        <Route path="/trip/statistics/:id" component={Statistics} />
         <Route path="/home/addtrip" component={AddTrip} />
         <Route path="/trip/addexpense" component={AddExpense} />
         <Route path="/home/:id" component={TripDetails} />

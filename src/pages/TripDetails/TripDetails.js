@@ -8,7 +8,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Tripdetails.css";
-import Badge from "react-bootstrap/Badge";
 import { fetchAllUsersforTrip } from "../../store/Homepage/actions";
 
 export default function TripDetails() {
@@ -50,6 +49,15 @@ export default function TripDetails() {
             className="btn btn-primary btn-circle btn-md"
           >
             <strong style={{ fontSize: "2em" }}>+</strong>
+          </button>
+        </div>
+        <div className="showstats">
+          <button
+            onClick={() => history.push(`/trip/statistics/${id}`)}
+            type="button"
+            className="btn btn-primary btn-md"
+          >
+            Show Statistics
           </button>
         </div>
       </Container>
