@@ -38,7 +38,7 @@ export function postNewTrip(title, budget, image, userId, token) {
 export function fetchUser(email) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/user/${email}`);
-    console.log("output:", output);
+    // console.log("output:", output);
     if (output.data !== "") {
       dispatch(addUser(output.data));
     } else {

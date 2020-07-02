@@ -15,35 +15,34 @@ import {
 } from "../../store/Addtrip/actions";
 import MessageBox from "../../components/MessageBox/index";
 import "./AddTrip.css";
-import { selectNewTrip, selectNewUser } from "../../store/Addtrip/selectors";
+import { selectNewTrip } from "../../store/Addtrip/selectors";
 
 export default function AddTrip() {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [image, setImage] = useState("");
-  const [show, set_showImage] = useState(false);
   const [friends, setFriends] = useState([]);
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("Add Friend");
   const token = useSelector(selectToken);
+
   const user = useSelector(selectUser);
   const { trip, newUser } = useSelector(selectNewTrip);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // To preview the Image and you can see the image for 5 secs
-  const previewImage = () => {
-    set_showImage(true);
-    setTimeout(function () {
-      set_showImage(false);
-    }, 5000);
-  };
-
   const addFriend = () => {
-    dispatch(fetchUser(email));
-    setEmail("");
+    if (email !== user.email) {
+      setMessage("Add Friend");
+      dispatch(fetchUser(email));
+      setEmail("");
+    } else {
+      setMessage("Cannot add loggedin user as friend");
+      setEmail("");
+    }
   };
-  //Posting the new art work
 
+  console.log("user:", user);
   function submitForm(event) {
     event.preventDefault();
     //console.log("title , amount ,image", title, amount, image);
@@ -64,6 +63,8 @@ export default function AddTrip() {
       const found = newUsers.find((user) => user.id === newUser.id);
       if (!found) {
         newUsers.push(newUser);
+      } else {
+        setMessage(`${newUser.fullname} is already added`);
       }
       setFriends(newUsers);
     }
@@ -146,7 +147,7 @@ export default function AddTrip() {
           {Object.entries(trip).length !== 0 ? (
             <Form>
               <Form.Group as={Row}>
-                <Form.Label>Add Friend</Form.Label>
+                <Form.Label>{message}</Form.Label>
                 <Form.Control
                   type="text"
                   value={email}
