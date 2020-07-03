@@ -35,9 +35,11 @@ export function postNewTrip(title, budget, image, userId, token) {
 }
 
 //API request for fetching artworks from the server
-export function fetchUser(email) {
+export function fetchUser(email, token) {
   return async function thunk(dispatch, getState) {
-    const output = await axios.get(`${apiUrl}/user/${email}`);
+    const output = await axios.get(`${apiUrl}/user/${email}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     // console.log("output:", output);
     if (output.data !== "") {
       dispatch(addUser(output.data));
@@ -51,12 +53,18 @@ export function fetchUser(email) {
 }
 
 //API request for fetching artworks from the server
-export function addFriendsToTrip(tripId, friends, userId) {
+export function addFriendsToTrip(tripId, friends, userId, token) {
   return async function thunk(dispatch, getState) {
-    const output = await axios.post(`${apiUrl}/home/${userId}`, {
-      tripId,
-      friends,
-    });
+    const output = await axios.post(
+      `${apiUrl}/home/${userId}`,
+      {
+        tripId,
+        friends,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("output:", output);
   };
 }

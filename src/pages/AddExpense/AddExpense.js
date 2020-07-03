@@ -6,16 +6,11 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Row } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
-
-import { selectToken, selectUser } from "../../store/user/selectors";
-import {
-  postNewTrip,
-  fetchUser,
-  addFriendsToTrip,
-} from "../../store/Addtrip/actions";
+import currency from "currency.js";
+import { selectToken } from "../../store/user/selectors";
 import MessageBox from "../../components/MessageBox/index";
 import "./AddExpense.css";
-import { selectNewTrip, selectNewUser } from "../../store/Addtrip/selectors";
+import { selectNewTrip } from "../../store/Addtrip/selectors";
 import { selectUsersofTrips } from "../../store/Homepage/selector";
 import { postNewExpense } from "../../store/AddExpense/actions";
 
@@ -59,7 +54,7 @@ export default function AddExpense() {
     dispatch(
       postNewExpense(
         title,
-        parseInt(amount),
+        currency(amount),
         parseInt(expenseType),
         sharedBy,
         spentBy ? parseInt(spentBy) : friends[0].userId,

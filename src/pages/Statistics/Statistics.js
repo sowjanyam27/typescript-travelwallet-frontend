@@ -3,7 +3,7 @@ import { Pie } from "react-chartjs-2";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectToken } from "../../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
 import {
   fetchAllExpensesSummary,
   fetchAllExpenseTypes,
@@ -13,7 +13,8 @@ import { selectExpenses } from "../../store/AddExpense/selector";
 import "../TripDetails/Tripdetails.css";
 import "./Statistics.css";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { createEmail } from "../../store/Email/action";
+import { selectEmailResponse } from "../../store/Email/selector";
 
 export default function Statistics() {
   const { id } = useParams();
@@ -22,11 +23,13 @@ export default function Statistics() {
   const { expenseTypes } = useSelector(selectExpenses);
   const { expensesSummary } = useSelector(selectExpenses);
   const { userExpenses } = useSelector(selectExpenses);
-
+  const { fullname } = useSelector(selectUser);
+  console.log("name:", fullname);
   const [labelValues, setLabels] = useState([]);
   const [finalData, setFinalData] = useState({});
   const [dataValues, setData] = useState([]);
-
+  const { msg } = useSelector(selectEmailResponse);
+  console.log("message:", msg);
   useEffect(() => {
     dispatch(fetchAllExpenseTypes(token));
     dispatch(fetchAllExpensesSummary(id, token));
@@ -38,9 +41,12 @@ export default function Statistics() {
     const types = expensesSummary.map((e) => {
       return expenseTypes.find((type) => type.id === e.expensetypeId);
     });
-    const titles = types.map((l) => l.title);
-    setLabels(titles);
-    setData(values);
+    console.log("types:", types);
+    if (types[0] !== undefined) {
+      const titles = types.map((l) => l.title);
+      setLabels(titles);
+      setData(values);
+    }
   }, [expensesSummary]);
 
   useEffect(() => {
@@ -61,6 +67,29 @@ export default function Statistics() {
     });
   }, [dataValues, labelValues]);
 
+  const sendEmail = () => {
+    const emailIds = userExpenses.map((u) => u.user.email);
+    const fullnames = userExpenses.map((u) => u.user.fullname);
+    const totals = userExpenses.map((u) => u.total);
+
+    const message = `
+    Hi,
+
+    Here is the summary of the trip:
+
+    ${userExpenses.map(
+      (u) => `
+    ${u.user.fullname} ${
+        u.total < 0 ? `owes ${u.total * -1}` : `gets back ${u.total}`
+      }`
+    )}
+
+    Regards,
+    TravelGeeks
+    `;
+
+    dispatch(createEmail(fullname, message, emailIds, token));
+  };
   console.log("userExpenses:", userExpenses);
 
   return (
@@ -75,27 +104,20 @@ export default function Statistics() {
               {userExpenses.map((user, i) => {
                 return (
                   <Row className="row-detail" key={i}>
-                    {/*  <Col>{user.user.fullname}</Col>
-                    <Col>
-                      {user.total < 0 ? (
-                        <p>owes {user.total}</p>
-                      ) : (
-                        <p>Gets back {user.total} </p>
-                      )}
-                    </Col> */}
                     <p className="mx-5">{user.user.fullname}</p>
-                    <p>
+                    <div>
                       {user.total < 0 ? (
-                        <p style={{ color: "red" }}>owes {user.total}</p>
+                        <p style={{ color: "red" }}>owes € {user.total * -1}</p>
                       ) : (
                         <p style={{ color: "green" }}>
-                          Gets back {user.total}{" "}
+                          Gets back € {user.total}{" "}
                         </p>
                       )}
-                    </p>
+                    </div>
                   </Row>
                 );
               })}
+              <button onClick={sendEmail}>Send Email</button>
             </div>
           ) : null}
         </div>

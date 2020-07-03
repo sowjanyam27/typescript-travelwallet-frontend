@@ -4,6 +4,7 @@ import user from "./user/reducer";
 import trips from "./Homepage/reducer";
 import trip from "./Addtrip/reducer";
 import expenses from "./AddExpense/reducer";
+import email from "./Email/reducer";
 
 export default combineReducers({
   appState,
@@ -11,4 +12,5 @@ export default combineReducers({
   trips,
   trip,
   expenses,
+  email,
 });

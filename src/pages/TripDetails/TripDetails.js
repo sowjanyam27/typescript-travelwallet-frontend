@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Tripdetails.css";
 import { fetchAllUsersforTrip } from "../../store/Homepage/actions";
+// get our fontawesome imports
 
 export default function TripDetails() {
   const { id } = useParams();

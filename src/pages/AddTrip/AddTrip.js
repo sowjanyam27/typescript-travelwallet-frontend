@@ -34,7 +34,7 @@ export default function AddTrip() {
   const addFriend = () => {
     if (email !== user.email) {
       setMessage("Add Friend");
-      dispatch(fetchUser(email));
+      dispatch(fetchUser(email, token));
       setEmail("");
     } else {
       setMessage("Cannot add loggedin user as friend");
@@ -53,7 +53,7 @@ export default function AddTrip() {
   function finalSubmit(event) {
     event.preventDefault();
     //console.log("Submitted");
-    dispatch(addFriendsToTrip(trip.id, friends, user.id));
+    dispatch(addFriendsToTrip(trip.id, friends, user.id, token));
     history.push("/home");
   }
 
@@ -105,25 +105,11 @@ export default function AddTrip() {
             <Form.Group as={Row}>
               <Form.Label>Image Url</Form.Label>
               <Form.Control
-                placeholder="https://"
+                type="text"
                 value={image}
                 onChange={(event) => setImage(event.target.value)}
               />
             </Form.Group>
-            {/* {show ? (
-              <img src={image} alt="pic not found" />
-            ) : (
-              <Form.Group as={Row} className="mt-5">
-                <Button
-                  variant="primary"
-                  type="button"
-                  onClick={previewImage}
-                  style={{ background: "#6B9DAC", width: "150px" }}
-                >
-                  Preview Image
-                </Button>
-              </Form.Group>
-            )} */}
 
             <Form.Group as={Row} className="mt-5">
               <Button
@@ -147,7 +133,9 @@ export default function AddTrip() {
           {Object.entries(trip).length !== 0 ? (
             <Form>
               <Form.Group as={Row}>
-                <Form.Label>{message}</Form.Label>
+                <Form.Label>
+                  <em>{message}</em>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   value={email}
