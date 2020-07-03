@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { fetchAllTrips } from "../../store/Homepage/actions";
@@ -8,8 +8,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./HomePage.css";
-import Button from "react-bootstrap/Button";
-import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { selectToken } from "../../store/user/selectors";
 
 export default function HomePage() {
