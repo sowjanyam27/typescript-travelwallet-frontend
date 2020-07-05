@@ -25,11 +25,18 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         expenses: updatedExpenses,
       };
+    case "DELETE_EXPENSE":
+      console.log("expenses in reducer:", state.expenses, payload);
+      const newExpenses = [...state.expenses];
+      const afterExpenses = newExpenses.filter((e) => e.id !== payload);
+      console.log("expenafterDeleteExpensesses in reducer:", afterExpenses);
+
     case "ALL_EXPENSES_SUMMARY":
       return {
         ...state,
-        expensesSummary: payload,
+        expenses: afterExpenses,
       };
+
     case "ALL_USER_EXPENSES":
       return {
         ...state,

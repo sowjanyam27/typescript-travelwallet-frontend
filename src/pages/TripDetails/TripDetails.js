@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllExpensesofTrip } from "../../store/AddExpense/actions";
+import {
+  fetchAllExpensesofTrip,
+  deleteExpenseDetails,
+} from "../../store/AddExpense/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { selectExpenses } from "../../store/AddExpense/selector";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { FaPencilRuler } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+
 import "./Tripdetails.css";
 import { fetchAllUsersforTrip } from "../../store/Homepage/actions";
 // get our fontawesome imports
@@ -23,6 +27,10 @@ export default function TripDetails() {
     dispatch(fetchAllUsersforTrip(id, token));
   }, [id]);
 
+  const deleteExpense = (id) => {
+    console.log("id:", id);
+    dispatch(deleteExpenseDetails(id));
+  };
   console.log("expenses:", expenses);
   return (
     <div className="expense">
@@ -52,6 +60,13 @@ export default function TripDetails() {
                       <div key={i} className="list-item">
                         <li className="list-inline-item">{expense.title}</li>
                         <li className="list-inline-item">{expense.amount}</li>
+
+                        <button
+                          className="list-buttons"
+                          onClick={() => deleteExpense(expense.id)}
+                        >
+                          <FaTrash />
+                        </button>
                       </div>
                     );
                   })}
