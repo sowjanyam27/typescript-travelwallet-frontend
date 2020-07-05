@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import Container from "react-bootstrap/Container";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import {
@@ -95,31 +95,51 @@ export default function Statistics() {
   return (
     <div className="stats">
       <Container className="cont">
-        <div className="piechart">
-          <Pie data={finalData} />
-        </div>
-        <div className="statDetails">
-          {userExpenses.length > 1 ? (
-            <div>
-              {userExpenses.map((user, i) => {
-                return (
-                  <Row className="row-detail" key={i}>
-                    <p className="mx-5">{user.user.fullname}</p>
-                    <div>
-                      {user.total < 0 ? (
-                        <p style={{ color: "red" }}>owes € {user.total * -1}</p>
-                      ) : (
-                        <p style={{ color: "green" }}>
-                          Gets back € {user.total}{" "}
-                        </p>
-                      )}
-                    </div>
-                  </Row>
-                );
-              })}
-              <button onClick={sendEmail}>Send Email</button>
+        <div className="card text-center">
+          <div className="card-header">
+            <ul className="nav nav-tabs card-header-tabs">
+              <li className="nav-item">
+                <Link className="nav-link" to={`/home/${id}`}>
+                  Expenses
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" href="#">
+                  Statistics
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="card-body">
+            <div className="piechart">
+              <Pie data={finalData} />
             </div>
-          ) : null}
+            <div className="statDetails">
+              {userExpenses.length > 1 ? (
+                <div>
+                  {userExpenses.map((user, i) => {
+                    return (
+                      <Row className="row-detail" key={i}>
+                        <p className="mx-5">{user.user.fullname}</p>
+                        <div>
+                          {user.total < 0 ? (
+                            <p style={{ color: "red" }}>
+                              owes € {user.total * -1}
+                            </p>
+                          ) : (
+                            <p style={{ color: "green" }}>
+                              Gets back € {user.total}{" "}
+                            </p>
+                          )}
+                        </div>
+                      </Row>
+                    );
+                  })}
+                  <button onClick={sendEmail}>Send Email</button>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       </Container>
     </div>

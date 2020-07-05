@@ -16,6 +16,8 @@
 .box {
   position: relative;
   display: inline-block;
+  margin: 10px;
+  margin-left: 50px;
 }
 
 .btn-circle.btn-md {
@@ -41,6 +43,14 @@
   width: 60%; /* Set the width of the positioned div */
   font-family: "Bree Serif", serif;
   letter-spacing: 0.2em;
+}
+
+img {
+  vertical-align: middle;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 img:hover {

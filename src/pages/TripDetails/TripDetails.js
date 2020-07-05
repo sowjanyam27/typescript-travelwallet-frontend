@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllExpensesofTrip } from "../../store/AddExpense/actions";
 import { selectToken, selectUser } from "../../store/user/selectors";
@@ -27,39 +27,57 @@ export default function TripDetails() {
   return (
     <div className="expense">
       <Container className="cont">
-        <h1>Trip Details</h1>
-        <div className="mt-5">
-          {expenses.map((expense, i) => {
-            return (
-              <Row className="row-detail" key={i}>
-                <Col className="col-detail" sm={{ size: "auto", offset: 1 }}>
-                  {expense.title}
-                </Col>
-                <Col className="col-detail" sm={{ size: "auto", offset: 1 }}>
-                  {expense.amount}
-                </Col>
-              </Row>
-            );
-          })}
-        </div>
-        <div className="addExpense">
-          Add Expense
-          <button
-            onClick={() => history.push("/trip/addexpense")}
-            type="button"
-            className="btn btn-primary btn-circle btn-md"
-          >
-            <strong style={{ fontSize: "2em" }}>+</strong>
-          </button>
-        </div>
-        <div className="showstats">
-          <button
-            onClick={() => history.push(`/trip/statistics/${id}`)}
-            type="button"
-            className="btn btn-primary btn-md"
-          >
-            Show Statistics
-          </button>
+        <div className="card text-center">
+          <div className="card-header">
+            <ul className="nav nav-tabs card-header-tabs">
+              <li className="nav-item">
+                <a className="nav-link active" href="#">
+                  Expenses
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={`/trip/statistics/${id}`}>
+                  Statistics
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">Trip Expenses</h5>
+            <div className="mt-5">
+              <div className="card" style={{ borderStyle: "none" }}>
+                <ul className="list-group list-group-flush">
+                  {expenses.map((expense, i) => {
+                    return (
+                      <div key={i} className="list-item">
+                        <li className="list-inline-item">{expense.title}</li>
+                        <li className="list-inline-item">{expense.amount}</li>
+                      </div>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="card-footer">
+            Add Expense
+            <button
+              onClick={() => history.push("/trip/addexpense")}
+              style={{ marginRight: "100px" }}
+              type="button"
+              className="btn btn-primary btn-circle btn-md"
+            >
+              <strong style={{ fontSize: "2em" }}>+</strong>
+            </button>
+            <button
+              style={{ marginLeft: "70px" }}
+              onClick={() => history.push(`/trip/statistics/${id}`)}
+              className="btn btn-primary"
+            >
+              See Statistics
+            </button>
+          </div>
         </div>
       </Container>
     </div>
