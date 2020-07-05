@@ -8,7 +8,6 @@ import {
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { selectExpenses } from "../../store/AddExpense/selector";
 import Container from "react-bootstrap/Container";
-import { FaPencilRuler } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import "./Tripdetails.css";
@@ -31,6 +30,7 @@ export default function TripDetails() {
     console.log("id:", id);
     dispatch(deleteExpenseDetails(id));
   };
+
   console.log("expenses:", expenses);
   return (
     <div className="expense">
@@ -60,7 +60,6 @@ export default function TripDetails() {
                       <div key={i} className="list-item">
                         <li className="list-inline-item">{expense.title}</li>
                         <li className="list-inline-item">{expense.amount}</li>
-
                         <button
                           className="list-buttons"
                           onClick={() => deleteExpense(expense.id)}

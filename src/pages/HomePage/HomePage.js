@@ -26,18 +26,8 @@ export default function HomePage() {
 
   return (
     <div className="Homepage">
-      {/*       <div className="add">
-        Add trip
-        <button
-          onClick={() => history.push("/home/addtrip")}
-          type="button"
-          className="btn btn-primary btn-circle btn-md"
-        >
-          <strong style={{ fontSize: "2em" }}>+</strong>
-        </button>
-      </div> */}
-      <div class="card">
-        <div class="card-body text-center">
+      <div className="card">
+        <div className="card-body text-center">
           Add trip
           <button
             onClick={() => history.push("/home/addtrip")}
@@ -55,20 +45,14 @@ export default function HomePage() {
             return (
               <Col xs={5} key={i} className="box">
                 <Link to={`/home/${trip.tripId}`}>
-                  {/*  <img
-                    src={trip.trip.image}
-                    alt="pic"
-                    className="img-responsive fit-image"
-                  />
-                  <p className="text">{trip.trip.title}</p> */}
-                  <div className="card text-dark">
+                  <div className="card text-light">
                     <img
                       className="card-img"
                       src={trip.trip.image}
                       alt="Card image"
                     />
                     <div className="card-img-overlay">
-                      <h5 className="card-title">{trip.trip.title}</h5>
+                      <h3 className="card-title">{trip.trip.title}</h3>
                     </div>
                   </div>
                 </Link>

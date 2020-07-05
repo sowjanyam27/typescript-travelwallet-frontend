@@ -24,12 +24,11 @@ export default function Statistics() {
   const { expensesSummary } = useSelector(selectExpenses);
   const { userExpenses } = useSelector(selectExpenses);
   const { fullname } = useSelector(selectUser);
-  console.log("name:", fullname);
   const [labelValues, setLabels] = useState([]);
   const [finalData, setFinalData] = useState({});
   const [dataValues, setData] = useState([]);
   const { msg } = useSelector(selectEmailResponse);
-  console.log("message:", msg);
+
   useEffect(() => {
     dispatch(fetchAllExpenseTypes(token));
     dispatch(fetchAllExpensesSummary(id, token));
@@ -37,6 +36,7 @@ export default function Statistics() {
   }, [id]);
 
   useEffect(() => {
+    console.log("expensesSummary:", expensesSummary);
     const values = expensesSummary.map((e) => e.total_amount);
     const types = expensesSummary.map((e) => {
       return expenseTypes.find((type) => type.id === e.expensetypeId);
@@ -69,8 +69,6 @@ export default function Statistics() {
 
   const sendEmail = () => {
     const emailIds = userExpenses.map((u) => u.user.email);
-    const fullnames = userExpenses.map((u) => u.user.fullname);
-    const totals = userExpenses.map((u) => u.total);
 
     const message = `
     Hi,
@@ -111,6 +109,12 @@ export default function Statistics() {
             </ul>
           </div>
           <div className="card-body">
+            {expensesSummary.length !== 0 ? (
+              <h5 className="card-title">Statistics of the Trip</h5>
+            ) : (
+              <h5 className="card-title">No Expenses for the trip </h5>
+            )}
+
             <div className="piechart">
               <Pie data={finalData} />
             </div>

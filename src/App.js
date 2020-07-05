@@ -35,6 +35,7 @@ function App() {
         <Route path="/trip/statistics/:id" component={Statistics} />
         <Route path="/home/addtrip" component={AddTrip} />
         <Route path="/trip/addexpense" component={AddExpense} />
+        <Route path="/trip/addexpense/:id" component={AddExpense} />
         <Route path="/home/:id" component={TripDetails} />
         <Route path="/home" component={HomePage} />
         <Route path="/signup" component={SignUp} />
