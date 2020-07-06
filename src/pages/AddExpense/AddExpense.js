@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Row } from "react-bootstrap";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import currency from "currency.js";
 import { selectToken } from "../../store/user/selectors";
 import MessageBox from "../../components/MessageBox/index";

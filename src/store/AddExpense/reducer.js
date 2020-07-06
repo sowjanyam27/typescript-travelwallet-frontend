@@ -25,6 +25,13 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         expenses: updatedExpenses,
       };
+    case "DELETE_EXPENSE":
+      const afterDelete = [...state.expenses];
+      const after = afterDelete.filter((e) => e.id !== payload);
+      return {
+        ...state,
+        expenses: after,
+      };
     case "ALL_EXPENSES_SUMMARY":
       return {
         ...state,

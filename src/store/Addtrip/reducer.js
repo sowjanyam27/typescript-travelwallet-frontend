@@ -11,6 +11,12 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         trip: payload,
       };
+    case "CLEAR_TRIP":
+      return {
+        ...state,
+        trip: {},
+        newUser: {},
+      };
     case "ADD_USER":
       return {
         ...state,

@@ -16,6 +16,7 @@ import {
 import MessageBox from "../../components/MessageBox/index";
 import "./AddTrip.css";
 import { selectNewTrip } from "../../store/Addtrip/selectors";
+import Axios from "axios";
 
 export default function AddTrip() {
   const [title, setTitle] = useState("");
@@ -42,18 +43,28 @@ export default function AddTrip() {
     }
   };
 
-  console.log("user:", user);
-  function submitForm(event) {
+  console.log("image:", image);
+  function addTrip(event) {
     event.preventDefault();
     //console.log("title , amount ,image", title, amount, image);
     console.log("Submitted");
-    dispatch(postNewTrip(title, amount, image, user.id, token));
+    const data = new FormData();
+    data.append("title", title);
+    data.append("amount", amount);
+    data.append("file", image);
+    console.log("data:", data);
+
+    dispatch(postNewTrip(data, token));
+    //dispatch(postNewTrip(title, amount, image, user.id, token));
   }
 
   function finalSubmit(event) {
     event.preventDefault();
     //console.log("Submitted");
     dispatch(addFriendsToTrip(trip.id, friends, user.id, token));
+    dispatch({
+      type: "CLEAR_TRIP",
+    });
     history.push("/home");
   }
 
@@ -105,9 +116,8 @@ export default function AddTrip() {
             <Form.Group as={Row}>
               <Form.Label>Image Url</Form.Label>
               <Form.Control
-                type="text"
-                value={image}
-                onChange={(event) => setImage(event.target.value)}
+                type="file"
+                onChange={(event) => setImage(event.target.files[0])}
               />
             </Form.Group>
 
@@ -115,7 +125,7 @@ export default function AddTrip() {
               <Button
                 variant="primary"
                 type="submit"
-                onClick={submitForm}
+                onClick={addTrip}
                 style={{ background: "#6B9DAC", width: "130px" }}
               >
                 Add Trip
@@ -123,7 +133,7 @@ export default function AddTrip() {
               <MessageBox />
             </Form.Group>
           </Form>
-          {friends
+          {friends.length > 0
             ? friends.map((f, i) => (
                 <p key={i} style={{ color: "green" }}>
                   <em>{f.fullname} is Added to the trip</em>

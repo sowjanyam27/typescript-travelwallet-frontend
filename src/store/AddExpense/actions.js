@@ -110,3 +110,17 @@ export function fetchAllUserExpenses(id, token) {
     dispatch(allUserExpenses(output.data));
   };
 }
+
+//API request for fetching artworks from the server
+export function deleteExpenseDetails(id, token) {
+  return async function thunk(dispatch, getState) {
+    const output = await axios.delete(`${apiUrl}/expense/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    //console.log("output", output);
+    dispatch({
+      type: "DELETE_EXPENSE",
+      payload: id,
+    });
+  };
+}

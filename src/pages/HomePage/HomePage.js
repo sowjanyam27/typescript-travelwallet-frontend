@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./HomePage.css";
 import { selectToken } from "../../store/user/selectors";
+import { staticUrl } from "../../config/constants";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -26,29 +27,39 @@ export default function HomePage() {
 
   return (
     <div className="Homepage">
-      <div className="add">
-        Add trip
-        <button
-          onClick={() => history.push("/home/addtrip")}
-          type="button"
-          className="btn btn-primary btn-circle btn-md"
-        >
-          <strong style={{ fontSize: "2em" }}>+</strong>
-        </button>
+      <div className="card">
+        <div className="card-body text-center">
+          Add trip
+          <button
+            onClick={() => history.push("/home/addtrip")}
+            type="button"
+            className="btn btn-primary btn-circle btn-md"
+          >
+            <strong style={{ fontSize: "2em" }}>+</strong>
+          </button>
+        </div>
       </div>
 
       <Container>
         <Row>
           {trips.map((trip, i) => {
+            const imageName = trip.trip.image.split("/");
             return (
-              <Col xs={6} key={i} className="box">
+              <Col xs={5} key={i} className="box">
                 <Link to={`/home/${trip.tripId}`}>
-                  <img
-                    src={trip.trip.image}
-                    alt="pic"
-                    className="img-responsive fit-image"
-                  />
-                  <p className="text">{trip.trip.title}</p>
+                  <div className="card text-dark">
+                    <img
+                      className="card-img-top"
+                      //src={require(`${trip.trip.image}`)}
+                      src={`${staticUrl}/${imageName[1]}`}
+                      alt="Card image"
+                    />
+                    <div className="card-body">
+                      <h5 className="card-text text-center">
+                        {trip.trip.title}
+                      </h5>
+                    </div>
+                  </div>
                 </Link>
               </Col>
             );
