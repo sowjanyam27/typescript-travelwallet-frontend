@@ -118,7 +118,7 @@ export default function Statistics() {
             <div className="piechart">
               <Pie data={finalData} />
             </div>
-            <div className="statDetails">
+            {/*             <div className="statDetails">
               {userExpenses.length > 1 ? (
                 <div>
                   {userExpenses.map((user, i) => {
@@ -142,6 +142,50 @@ export default function Statistics() {
                   <button onClick={sendEmail}>Send Email</button>
                 </div>
               ) : null}
+            </div> */}
+            <div className="card-body">
+              <div className="mt-5">
+                <div className="card" style={{ borderStyle: "none" }}>
+                  {userExpenses.length > 1 ? (
+                    <ul
+                      className="list-group list-group-flush"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      {userExpenses.map((user, i) => {
+                        return (
+                          <div key={i} className="list-item">
+                            <li className="list-inline-item">
+                              {user.user.fullname}
+                            </li>
+                            <li className="list-inline-item">
+                              {user.total < 0 ? (
+                                <p style={{ color: "red" }}>
+                                  owes € {user.total * -1}
+                                </p>
+                              ) : (
+                                <p style={{ color: "green" }}>
+                                  Gets back € {user.total}{" "}
+                                </p>
+                              )}
+                            </li>
+                          </div>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                  <button
+                    onClick={sendEmail}
+                    className="btn btn-primary"
+                    style={{
+                      width: "15%",
+                      marginLeft: "43%",
+                      marginTop: "20px",
+                    }}
+                  >
+                    Send Email
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

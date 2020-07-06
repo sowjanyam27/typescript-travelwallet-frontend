@@ -16,21 +16,19 @@ export function addUser(data) {
 }
 
 //API request for fetching artworks from the server
-export function postNewTrip(title, budget, image, userId, token) {
+export function postNewTrip(data, token) {
+  console.log("data in action:", data);
   return async function thunk(dispatch, getState) {
-    const output = await axios.post(
-      `${apiUrl}/trip`,
-      {
-        title,
-        budget,
-        image,
-      },
-      {
+    // console.log("path ", `${apiUrl}/trip`);
+    axios
+      .post("http://localhost:4000/trip", data, {
         headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    console.log("output in action:", output.data);
-    dispatch(addTrip(output.data));
+      })
+      .then((res) => dispatch(addTrip(res.data)))
+      .catch((err) => console.log(err));
+
+    /*   console.log("output in action:", output);
+    dispatch(addTrip(output.data)); */
   };
 }
 
