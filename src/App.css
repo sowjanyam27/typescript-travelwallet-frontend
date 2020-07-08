@@ -4,8 +4,6 @@
 }
 
 .front {
-  /* background-image: url("https://images.unsplash.com/photo-1584028826939-7b98efbc3cbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80");
- */
   background-image: url(../src/images/background.jpeg);
   background-size: cover;
   background-position: center;

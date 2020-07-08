@@ -31,7 +31,7 @@ function App() {
           <span style={{ paddingLeft: "5px", color: "#93b768" }}>
             <TextLoop
               interval={[3000, 1000]}
-              children={["Travel Geeks", "Backpackers", "Families", "nomads"]}
+              children={["Backpackers", "Families", "nomads"]}
             />
           </span>
         </h1>
