@@ -24,7 +24,7 @@ export default function AddExpense() {
   const friends = useSelector(selectUsersofTrips);
   const token = useSelector(selectToken);
   const { trip, newUser } = useSelector(selectNewTrip);
-
+  console.log("friends:", friends);
   const dispatch = useDispatch();
   const history = useHistory();
 

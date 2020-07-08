@@ -8,6 +8,7 @@ import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
 import "./styles.css";
+import logo from "../../images/rainbow.jpg";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
@@ -20,7 +21,17 @@ export default function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        Travel Wallet
+        <img
+          style={{
+            boxShadow: "none",
+            height: "50px",
+            width: "70px",
+            marginLeft: "10px",
+          }}
+          src={logo}
+          alt="logo"
+          className="img-responsive"
+        />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

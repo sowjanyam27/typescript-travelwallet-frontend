@@ -8,6 +8,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case "ALL_EXPENSES":
+      console.log("payload in reducer:", payload);
       return {
         ...state,
         expenses: payload,
@@ -18,8 +19,15 @@ export default (state = initialState, { type, payload }) => {
         expenseTypes: payload,
       };
     case "ADD_EXPENSE":
+      console.log("payload in add expense:", payload);
+
       const updatedExpenses = [...state.expenses];
-      updatedExpenses.push(payload);
+      const found = updatedExpenses.find(
+        (expense) => expense.id === payload.id
+      );
+      if (!found) {
+        updatedExpenses.push(payload);
+      }
       console.log("updatedExpenses:", updatedExpenses);
       return {
         ...state,

@@ -12,9 +12,7 @@ import {
 import { selectExpenses } from "../../store/AddExpense/selector";
 import "../TripDetails/Tripdetails.css";
 import "./Statistics.css";
-import Row from "react-bootstrap/Row";
 import { createEmail } from "../../store/Email/action";
-import { selectEmailResponse } from "../../store/Email/selector";
 
 export default function Statistics() {
   const { id } = useParams();
@@ -27,13 +25,15 @@ export default function Statistics() {
   const [labelValues, setLabels] = useState([]);
   const [finalData, setFinalData] = useState({});
   const [dataValues, setData] = useState([]);
-  const { msg } = useSelector(selectEmailResponse);
 
   useEffect(() => {
-    dispatch(fetchAllExpenseTypes(token));
     dispatch(fetchAllExpensesSummary(id, token));
     dispatch(fetchAllUserExpenses(id, token));
   }, [id]);
+
+  useEffect(() => {
+    dispatch(fetchAllExpenseTypes(token));
+  }, [expensesSummary]);
 
   useEffect(() => {
     console.log("expensesSummary:", expensesSummary);
@@ -47,7 +47,7 @@ export default function Statistics() {
       setLabels(titles);
       setData(values);
     }
-  }, [expensesSummary]);
+  }, [expenseTypes]);
 
   useEffect(() => {
     setFinalData({
@@ -89,7 +89,7 @@ export default function Statistics() {
     dispatch(createEmail(fullname, message, emailIds, token));
   };
   console.log("userExpenses:", userExpenses);
-
+  console.log("finalData:", finalData);
   return (
     <div className="stats">
       <Container className="cont">
@@ -118,35 +118,11 @@ export default function Statistics() {
             <div className="piechart">
               <Pie data={finalData} />
             </div>
-            {/*             <div className="statDetails">
-              {userExpenses.length > 1 ? (
-                <div>
-                  {userExpenses.map((user, i) => {
-                    return (
-                      <Row className="row-detail" key={i}>
-                        <p className="mx-5">{user.user.fullname}</p>
-                        <div>
-                          {user.total < 0 ? (
-                            <p style={{ color: "red" }}>
-                              owes € {user.total * -1}
-                            </p>
-                          ) : (
-                            <p style={{ color: "green" }}>
-                              Gets back € {user.total}{" "}
-                            </p>
-                          )}
-                        </div>
-                      </Row>
-                    );
-                  })}
-                  <button onClick={sendEmail}>Send Email</button>
-                </div>
-              ) : null}
-            </div> */}
+
             <div className="card-body">
               <div className="mt-5">
-                <div className="card" style={{ borderStyle: "none" }}>
-                  {userExpenses.length > 1 ? (
+                {userExpenses.length > 1 ? (
+                  <div className="card" style={{ borderStyle: "none" }}>
                     <ul
                       className="list-group list-group-flush"
                       style={{ fontWeight: "bold" }}
@@ -172,19 +148,19 @@ export default function Statistics() {
                         );
                       })}
                     </ul>
-                  ) : null}
-                  <button
-                    onClick={sendEmail}
-                    className="btn btn-primary"
-                    style={{
-                      width: "15%",
-                      marginLeft: "43%",
-                      marginTop: "20px",
-                    }}
-                  >
-                    Send Email
-                  </button>
-                </div>
+                    <button
+                      onClick={sendEmail}
+                      className="btn btn-primary"
+                      style={{
+                        width: "15%",
+                        marginLeft: "43%",
+                        marginTop: "20px",
+                      }}
+                    >
+                      Send Email
+                    </button>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

@@ -68,7 +68,10 @@ export default function AddTrip() {
     history.push("/home");
   }
 
+  //Once the new friend is added we verify if he is a valid user then
+  //adding the new user to the shared friends
   useEffect(() => {
+    //If newUser is a not a valid registred user then object is empty
     if (Object.entries(newUser).length !== 0) {
       const newUsers = [...friends];
       const found = newUsers.find((user) => user.id === newUser.id);
