@@ -15,6 +15,13 @@ export function allUsersforTrip(data) {
   };
 }
 
+export function allTripGroupDetails(data) {
+  return {
+    type: "ALL_TRIP_GROUP_DETAILS",
+    payload: data,
+  };
+}
+
 //API request for fetching artworks from the server
 export function fetchAllTrips(id, token) {
   return async function thunk(dispatch, getState) {
@@ -34,5 +41,23 @@ export function fetchAllUsersforTrip(id, token) {
     });
     //console.log("output:", output);
     dispatch(allUsersforTrip(output.data));
+  };
+}
+
+//API request for fetching artworks from the server
+export function fetchTripGroupDetails(ids, token) {
+  console.log("ids in aaction", ids);
+  return async function thunk(dispatch, getState) {
+    const output = await axios.get(
+      `${apiUrl}/group/trip`,
+
+      {
+        params: {
+          ids,
+        },
+      }
+    );
+    console.log("output:", output);
+    dispatch(allTripGroupDetails(output.data));
   };
 }

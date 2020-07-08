@@ -42,7 +42,7 @@ export function fetchAllExpensesofTrip(id, token) {
     const output = await axios.get(`${apiUrl}/trip/expenses/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    //console.log("output:", output);
+    console.log("output in fetchAllExpenses:", output.data);
     dispatch(allExpenses(output.data));
   };
 }

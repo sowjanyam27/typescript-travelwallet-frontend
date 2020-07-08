@@ -1,6 +1,7 @@
 const initialState = {
   trips: [],
   users: [],
+  tripGroups: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,6 +12,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         users: payload,
+      };
+    case "ALL_TRIP_GROUP_DETAILS":
+      return {
+        ...state,
+        tripGroups: payload,
       };
     default:
       return state;
