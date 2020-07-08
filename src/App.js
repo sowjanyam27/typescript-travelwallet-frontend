@@ -22,6 +22,10 @@ function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
 
+  const FrontPage = () => {
+    return <div style={{ height: "700px" }} className="front"></div>;
+  };
+
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
@@ -40,6 +44,7 @@ function App() {
         <Route path="/home" component={HomePage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/" component={FrontPage} />
       </Switch>
     </div>
   );
