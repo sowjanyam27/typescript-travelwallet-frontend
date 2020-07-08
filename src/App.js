@@ -10,6 +10,7 @@ import TripDetails from "./pages/TripDetails/TripDetails";
 import AddTrip from "./pages/AddTrip/AddTrip";
 import AddExpense from "./pages/AddExpense/AddExpense";
 import Statistics from "./pages/Statistics/Statistics";
+import TextLoop from "react-text-loop";
 
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -23,7 +24,19 @@ function App() {
   const isLoading = useSelector(selectAppLoading);
 
   const FrontPage = () => {
-    return <div style={{ height: "700px" }} className="front"></div>;
+    return (
+      <div style={{ height: "700px" }} className="front">
+        <h1 className="text">
+          Travel wallet for
+          <span style={{ paddingLeft: "5px", color: "#93b768" }}>
+            <TextLoop
+              interval={[3000, 1000]}
+              children={["Travel Geeks", "Backpackers", "Families", "nomads"]}
+            />
+          </span>
+        </h1>
+      </div>
+    );
   };
 
   useEffect(() => {

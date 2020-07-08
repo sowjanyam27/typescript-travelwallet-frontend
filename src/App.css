@@ -11,3 +11,15 @@
   background-position: center;
   position: relative;
 }
+
+.text {
+  left: 0;
+  line-height: 200px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top: 40%;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+}
