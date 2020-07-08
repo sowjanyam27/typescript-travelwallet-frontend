@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { fetchAllTrips } from "../../store/Homepage/actions";
@@ -10,14 +10,17 @@ import Col from "react-bootstrap/Col";
 import "./HomePage.css";
 import { selectToken } from "../../store/user/selectors";
 import { staticUrl } from "../../config/constants";
+import PersonIcon from "@material-ui/icons/Person";
+import PeopleIcon from "@material-ui/icons/People";
+import { fetchTripGroupDetails } from "../../store/Homepage/actions";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUser);
-  const { trips } = useSelector(selectTripsOfUser);
+  const { trips, tripGroups } = useSelector(selectTripsOfUser);
   const history = useHistory();
   const token = useSelector(selectToken);
-
+  const [group, setGroup] = useState({});
   console.log("trips : ", trips);
   useEffect(() => {
     if (id !== undefined) {
@@ -25,6 +28,20 @@ export default function HomePage() {
     }
   }, [id]);
 
+  useEffect(() => {
+    let object = tripGroups.reduce(
+      (obj, item) => ((obj[item.tripId] = parseInt(item.n_tripId)), obj),
+      {}
+    );
+    setGroup(object);
+  }, [tripGroups]);
+
+  useEffect(() => {
+    const ids = trips.map((t) => t.tripId);
+    dispatch(fetchTripGroupDetails(ids, token));
+  }, [trips]);
+
+  console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
       <div className="card">
@@ -55,8 +72,15 @@ export default function HomePage() {
                       alt="Card image"
                     />
                     <div className="card-body">
-                      <h5 className="card-text text-center">
+                      <h5 className="card-text">
                         {trip.trip.title}
+                        <span style={{ marginLeft: "60%" }}>
+                          {group[trip.tripId] > 1 ? (
+                            <PeopleIcon style={{ color: "purple" }} />
+                          ) : (
+                            <PersonIcon style={{ color: "purple" }} />
+                          )}
+                        </span>
                       </h5>
                     </div>
                   </div>
