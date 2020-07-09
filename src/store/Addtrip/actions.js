@@ -21,7 +21,7 @@ export function postNewTrip(data, token) {
   return async function thunk(dispatch, getState) {
     // console.log("path ", `${apiUrl}/trip`);
     axios
-      .post("http://localhost:4000/trip", data, {
+      .post(`${apiUrl}/trip`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => dispatch(addTrip(res.data)))
