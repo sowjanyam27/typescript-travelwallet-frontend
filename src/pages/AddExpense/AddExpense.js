@@ -7,14 +7,14 @@ import Button from "react-bootstrap/Button";
 import { Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import currency from "currency.js";
+import { Formik, FieldArray } from "formik";
+import * as Yup from "yup";
+
 import { selectToken } from "../../store/user/selectors";
 import MessageBox from "../../components/MessageBox/index";
 import "./AddExpense.css";
 import { selectUsersofTrips } from "../../store/Homepage/selector";
 import { postNewExpense } from "../../store/AddExpense/actions";
-import { Formik, FieldArray } from "formik";
-
-import * as Yup from "yup";
 
 // Schema for yup
 const validationSchema = Yup.object().shape({
@@ -26,14 +26,14 @@ const validationSchema = Yup.object().shape({
     .positive("*amount must be positive")
     .required("*amount is required"),
   expenseType: Yup.number().required("*expenseType is required").integer(),
-  spentBy: Yup.number().required("*spentBy is required").integer(),
-  sharedBy: Yup.array().required("*sharedBy is required"),
+  spentBy: Yup.number().integer(),
+  sharedBy: Yup.array(),
 });
 
 export default function AddExpense() {
   const friends = useSelector(selectUsersofTrips);
   const token = useSelector(selectToken);
-  console.log("friends:", friends);
+  //console.log("friends:", friends);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -61,7 +61,7 @@ export default function AddExpense() {
     );
     history.push(`/home/${friends[0].tripId}`);
   }
-  console.log("friends:", friends);
+  //console.log("friends:", friends);
   return (
     <div>
       <Jumbotron style={{ background: "#EED9E7" }}>
@@ -161,7 +161,7 @@ export default function AddExpense() {
                         value={values.spentBy}
                         onChange={handleChange}
                       >
-                        <option value="" label="Select a color" />
+                        <option value="" label="Paid by" />
                         {friends.map((f, i) => (
                           <option
                             key={i}

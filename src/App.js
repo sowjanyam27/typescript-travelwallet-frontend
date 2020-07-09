@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import "./App.css";
-
 import { Switch, Route } from "react-router-dom";
+import TextLoop from "react-text-loop";
+
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox";
@@ -10,8 +10,7 @@ import TripDetails from "./pages/TripDetails/TripDetails";
 import AddTrip from "./pages/AddTrip/AddTrip";
 import AddExpense from "./pages/AddExpense/AddExpense";
 import Statistics from "./pages/Statistics/Statistics";
-import TextLoop from "react-text-loop";
-
+import "./App.css";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 

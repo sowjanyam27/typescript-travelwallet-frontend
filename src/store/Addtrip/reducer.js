@@ -27,6 +27,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         newUser: payload,
       };
+    case "CLEAR_NEWUSER":
+      return {
+        ...state,
+        newUser: payload,
+      };
     default:
       return state;
   }
