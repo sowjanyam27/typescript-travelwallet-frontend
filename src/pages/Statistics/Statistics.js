@@ -13,6 +13,7 @@ import { selectExpenses } from "../../store/AddExpense/selector";
 import "../TripDetails/Tripdetails.css";
 import "./Statistics.css";
 import { createEmail } from "../../store/Email/action";
+import currency from "currency.js";
 
 export default function Statistics() {
   const { id } = useParams();
@@ -139,11 +140,11 @@ export default function Statistics() {
                             <li className="list-inline-item">
                               {user.total < 0 ? (
                                 <p style={{ color: "red" }}>
-                                  owes € {user.total * -1}
+                                  owes € {currency(user.total * -1)}
                                 </p>
                               ) : (
                                 <p style={{ color: "green" }}>
-                                  Gets back € {user.total}{" "}
+                                  Gets back € {currency(user.total)}{" "}
                                 </p>
                               )}
                             </li>
