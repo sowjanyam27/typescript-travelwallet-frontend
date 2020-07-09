@@ -1,4 +1,4 @@
-# `Travel Wallet`
+# `Travel Wallet` 💸
 
 [See the deployed site here](https://wizardly-poincare-fafda8.netlify.app/)
 
@@ -20,7 +20,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Goals
 
-My goal for this project was to build a full stack app using the technologies learned in the bootcamp and also exploring new ones by going through the documentation.
+My goal for this project was to build a full stack app using the technologies learned in the bootcamp and also exploring new ones by going through the online documentation.
 
 - Practice full-stack app development
 - Apply what we learned in Codaisseur's bootcamp
