@@ -36,13 +36,16 @@ export default function Statistics() {
   }, [expensesSummary]);
 
   useEffect(() => {
-    console.log("expensesSummary:", expensesSummary);
+    //console.log("expensesSummary:", expensesSummary);
+
+    //Aggregated expenses values
     const values = expensesSummary.map((e) => e.total_amount);
     const types = expensesSummary.map((e) => {
       return expenseTypes.find((type) => type.id === e.expensetypeId);
     });
     console.log("types:", types);
     if (types[0] !== undefined) {
+      // with aggregated types get the aggregated titles
       const titles = types.map((l) => l.title);
       setLabels(titles);
       setData(values);
@@ -88,8 +91,8 @@ export default function Statistics() {
 
     dispatch(createEmail(fullname, message, emailIds, token));
   };
-  console.log("userExpenses:", userExpenses);
-  console.log("finalData:", finalData);
+  //console.log("userExpenses:", userExpenses);
+  //console.log("finalData:", finalData);
   return (
     <div className="stats">
       <Container className="cont">

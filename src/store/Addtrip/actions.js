@@ -15,42 +15,38 @@ export function addUser(data) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for posting new trip
 export function postNewTrip(data, token) {
   console.log("data in action:", data);
   return async function thunk(dispatch, getState) {
-    // console.log("path ", `${apiUrl}/trip`);
     axios
       .post(`${apiUrl}/trip`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => dispatch(addTrip(res.data)))
       .catch((err) => console.log(err));
-
-    /*   console.log("output in action:", output);
-    dispatch(addTrip(output.data)); */
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching user from the user table
 export function fetchUser(email, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/user/${email}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log("output:", output);
     if (output.data !== "") {
       dispatch(addUser(output.data));
     } else {
       dispatch({
         type: "USER_NOT_FOUND",
-        payload: {},
+        payload: { id: 0 }, //Since the reponse from api is null just assigning id with 0
+        //To identify in the front end that user is not found
       });
     }
   };
 }
 
-//API request for fetching artworks from the server
+//API request for posting friends to the trip
 export function addFriendsToTrip(tripId, friends, userId, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.post(

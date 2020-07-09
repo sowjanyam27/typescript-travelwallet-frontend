@@ -22,7 +22,7 @@ export function allTripGroupDetails(data) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching all trips for userId
 export function fetchAllTrips(id, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/home/${id}`, {
@@ -33,7 +33,7 @@ export function fetchAllTrips(id, token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching all users for each trip
 export function fetchAllUsersforTrip(id, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/trip/${id}`, {
@@ -44,7 +44,7 @@ export function fetchAllUsersforTrip(id, token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching group details of each trip
 export function fetchTripGroupDetails(ids, token) {
   console.log("ids in aaction", ids);
   return async function thunk(dispatch, getState) {
@@ -57,7 +57,6 @@ export function fetchTripGroupDetails(ids, token) {
         },
       }
     );
-    console.log("output:", output);
     dispatch(allTripGroupDetails(output.data));
   };
 }

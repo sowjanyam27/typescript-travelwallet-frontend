@@ -36,7 +36,7 @@ export function allUserExpenses(data) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching all expenses for the trip
 export function fetchAllExpensesofTrip(id, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/trip/expenses/${id}`, {
@@ -47,7 +47,7 @@ export function fetchAllExpensesofTrip(id, token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for posting new expense
 export function postNewExpense(
   title,
   amount,
@@ -77,7 +77,7 @@ export function postNewExpense(
   };
 }
 
-//
+// Aggregated expenses summary of each category
 export function fetchAllExpensesSummary(id, token) {
   return async function thunk(dispatch, getState) {
     console.log("id in fetchallexpensesum:", typeof id, id);
@@ -89,7 +89,7 @@ export function fetchAllExpensesSummary(id, token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching all expenseTypes
 export function fetchAllExpenseTypes(token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/types`, {
@@ -100,7 +100,7 @@ export function fetchAllExpenseTypes(token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for fetching all user expenses from userExpense table
 export function fetchAllUserExpenses(id, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.get(`${apiUrl}/userexpense/${id}`, {
@@ -111,7 +111,7 @@ export function fetchAllUserExpenses(id, token) {
   };
 }
 
-//API request for fetching artworks from the server
+//API request for deleting the expense
 export function deleteExpenseDetails(id, token) {
   return async function thunk(dispatch, getState) {
     const output = await axios.delete(`${apiUrl}/expense/${id}`, {

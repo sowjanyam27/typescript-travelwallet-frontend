@@ -7,7 +7,7 @@ function sendMail(data) {
     payload: data,
   };
 }
-//API request for fetching artworks from the server
+//API request for sending email to all the list of friends in the trip
 export function createEmail(name, message, toemaiIds, token) {
   return async function thunk(dispatch, getState) {
     console.log("state:", getState);
