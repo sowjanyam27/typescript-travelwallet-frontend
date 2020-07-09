@@ -1,6 +1,6 @@
 # `Travel Wallet`
 
-[See the deployed site here]()
+[See the deployed site here](https://wizardly-poincare-fafda8.netlify.app/)
 
 ## Table of contents
 
@@ -37,7 +37,7 @@ I plan to continue working on this app, using it as a platform to explore new te
 - [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/)
 - [Formik](https://github.com/sowjanyam27/travel-wallet-client/blob/development/src/pages/AddExpense/AddExpense.js)⭐️
 - [Express](https://github.com/sowjanyam27/travel-wallet-server/blob/development/index.js)
-  - REST (https://github.com/sowjanyam27/travel-wallet-server/blob/development/routers/trip.js)
+  - [REST](https://github.com/sowjanyam27/travel-wallet-server/blob/development/routers/trip.js)
 - [Sequelize](https://github.com/sowjanyam27/travel-wallet-server/blob/development/models/trip.js)
 - [Nodemailer](https://github.com/sowjanyam27/travel-wallet-server/blob/development/routers/email.js)⭐️
 - [multer](https://github.com/sowjanyam27/travel-wallet-server/blob/development/routers/trip.js)⭐️
@@ -50,13 +50,15 @@ I plan to continue working on this app, using it as a platform to explore new te
 ![trips](https://user-images.githubusercontent.com/56592518/86966906-27675900-c16a-11ea-9d10-996cab26d555.png)
 ![details](https://user-images.githubusercontent.com/56592518/86967422-e6237900-c16a-11ea-8a85-bf8ebf38eddc.png)
 ![addExpense](https://user-images.githubusercontent.com/56592518/86967004-4d8cf900-c16a-11ea-8595-c5dc8b14b396.png)
-![stats1](https://user-images.githubusercontent.com/56592518/86967035-58478e00-c16a-11ea-8abb-e3b183e2ecd0.png)
+![stats](https://user-images.githubusercontent.com/56592518/87040212-ab642400-c1f0-11ea-90c1-73df1c5cc705.png)
+![stats1](https://user-images.githubusercontent.com/56592518/87040276-c171e480-c1f0-11ea-988f-499d09f82f5a.png)
+![email](https://user-images.githubusercontent.com/56592518/87040668-583ea100-c1f1-11ea-8e88-685eeb22c6f2.png)
 
 ### Project User Stories and Wireframe
 
 - User Stories
 
-  - As a person who wants to track the expenses should be able to login/signup to use the features of this app.
+  - As a person who wants to keep track of expenses while travelling should be able to login/signup to use the features of this app.
   - As a person who wants to keep track of expenses should see the list of all my previous trips
   - As a person who wants to track expenses, I want to add a new trip
   - As a person who wants to share expenses, I can add friends to this trip, so that friends can also see the trip details in their account.
@@ -68,7 +70,8 @@ I plan to continue working on this app, using it as a platform to explore new te
   - As a person who is sharing the expenses, I can see who owes and who gets back money, so that we can settle it.
   - As a person who is sharing the trip should send an email to others who are sharing the trip
 
-- Wireframe \*[Travel Wallet Wireframe](https://wireframepro.mockflow.com/view/M23e7fb5dfa23af0b0d580c1f87e33e321593268948906)
+- Wireframe
+  - [Travel Wallet Wireframe](https://wireframepro.mockflow.com/view/M23e7fb5dfa23af0b0d580c1f87e33e321593268948906)
 
 ### Server Repository
 
