@@ -1,0 +1,53 @@
+.expense {
+  text-align: center;
+  margin: 5%;
+}
+
+.cont {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 0 0 10px 8px #b1a966;
+  min-height: 80vh;
+  box-sizing: border-box;
+}
+
+.col-detail {
+  margin-bottom: 15px;
+  margin-left: 100px;
+  text-align: left;
+}
+
+.addExpense {
+  margin-top: 60px;
+}
+
+.showstats {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.list-item {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px 0 rgb(84, 80, 85);
+  text-align: left;
+}
+
+.list-inline-item {
+  width: 40%;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.card-footer {
+  margin-top: 40px;
+}
+
+.list-buttons {
+  border-style: none;
+  background-color: white;
+  font-size: 0.8em;
+  color: #7b797a;
+}

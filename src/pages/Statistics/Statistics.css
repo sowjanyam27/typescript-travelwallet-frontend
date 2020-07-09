@@ -1,0 +1,15 @@
+.stats {
+  text-align: center;
+  margin: 5%;
+}
+
+.piechart {
+  height: 100%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.statDetails {
+  margin-top: 10%;
+}
