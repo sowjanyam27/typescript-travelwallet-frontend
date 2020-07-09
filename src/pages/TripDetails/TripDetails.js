@@ -89,8 +89,8 @@ export default function TripDetails() {
             <h5 className="card-title">Trip Expenses</h5>
             <p className="mx-3 text-muted">
               {" "}
-              Budget: € ${budget}{" "}
-              <span className="mx-3">Amount Spent: € ${total}</span>
+              Budget: € {budget}{" "}
+              <span className="mx-3">Amount Spent: € {total}</span>
             </p>
             <div className="mt-5">
               <div className="card" style={{ borderStyle: "none" }}>
