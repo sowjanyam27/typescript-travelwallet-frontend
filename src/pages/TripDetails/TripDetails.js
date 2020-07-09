@@ -5,10 +5,9 @@ import {
   fetchAllExpensesofTrip,
   deleteExpenseDetails,
 } from "../../store/AddExpense/actions";
-import { selectToken, selectUser } from "../../store/user/selectors";
+import { selectToken } from "../../store/user/selectors";
 import { selectExpenses } from "../../store/AddExpense/selector";
 import Container from "react-bootstrap/Container";
-import { FaTrash } from "react-icons/fa";
 import {
   Fastfood,
   Flight,
@@ -33,7 +32,9 @@ export default function TripDetails() {
   const history = useHistory();
   const { trip } = useSelector(selectNewTrip);
   const tripUsers = useSelector(selectUsersofTrips);
+
   console.log("tripUsers:", tripUsers);
+
   useEffect(() => {
     dispatch(fetchAllExpensesofTrip(id, token));
     dispatch(fetchAllUsersforTrip(id, token));
@@ -44,22 +45,18 @@ export default function TripDetails() {
   };
 
   useEffect(() => {
-    console.log("expenses inside useEffect:", expenses);
-
     const amount = expenses.reduce(function (acc, obj) {
       return acc + obj.amount;
     }, 0);
-    setTotal(amount);
+    setTotal(amount); //Total amount spent so far
     if (expenses.length) {
       console.log("trip:", trip);
-      //setBudget(expenses[0].trip.budget);
     }
   }, [expenses]);
 
   useEffect(() => {
-    console.log("tripUsers inside useEffect:", tripUsers);
     if (tripUsers.length !== 0) {
-      setBudget(tripUsers[0].trip.budget);
+      setBudget(tripUsers[0].trip.budget); //Trip budget
     }
   }, [tripUsers]);
 

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { fetchAllTrips } from "../../store/Homepage/actions";
-import { selectUser } from "../../store/user/selectors";
-import { selectTripsOfUser } from "../../store/Homepage/selector";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./HomePage.css";
-import { selectToken } from "../../store/user/selectors";
-import { staticUrl } from "../../config/constants";
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
+
+import { fetchAllTrips } from "../../store/Homepage/actions";
+import { selectUser } from "../../store/user/selectors";
+import { selectTripsOfUser } from "../../store/Homepage/selector";
+import { selectToken } from "../../store/user/selectors";
+import { staticUrl } from "../../config/constants";
 import { fetchTripGroupDetails } from "../../store/Homepage/actions";
+import "./HomePage.css";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -22,12 +23,15 @@ export default function HomePage() {
   const token = useSelector(selectToken);
   const [group, setGroup] = useState({});
   console.log("trips : ", trips);
+
+  //Fetch trips of user (id)
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchAllTrips(id, token));
     }
   }, [id]);
 
+  //To identify if the trip is group trip or solo trip
   useEffect(() => {
     let object = tripGroups.reduce(
       (obj, item) => ((obj[item.tripId] = parseInt(item.n_tripId)), obj),
@@ -41,7 +45,7 @@ export default function HomePage() {
     dispatch(fetchTripGroupDetails(ids, token));
   }, [trips]);
 
-  console.log("tripGroups:", tripGroups);
+  //console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
       <div className="card">

@@ -77,6 +77,7 @@ export default function AddTrip() {
   function finalSubmit(event) {
     event.preventDefault();
     dispatch(addFriendsToTrip(trip.id, friends, user.id, token));
+    //Once trip is created in the table CLEAR_TRIP is for clearing the old data.
     dispatch({
       type: "CLEAR_TRIP",
     });
@@ -88,14 +89,23 @@ export default function AddTrip() {
   useEffect(() => {
     //If newUser is a not a valid registred user then object is empty
     if (Object.entries(newUser).length !== 0) {
-      const newUsers = [...friends];
-      const found = newUsers.find((user) => user.id === newUser.id);
-      if (!found) {
-        newUsers.push(newUser);
+      if (newUser.id === 0) {
+        setMessage(`User not found`);
+        //Since we assigned id = 0 for user not found case assiging back to {} for newuser
+        dispatch({
+          type: "CLEAR_NEWUSER",
+          payload: {},
+        });
       } else {
-        setMessage(`${newUser.fullname} is already added`);
+        const newUsers = [...friends];
+        const found = newUsers.find((user) => user.id === newUser.id);
+        if (!found) {
+          newUsers.push(newUser);
+        } else {
+          setMessage(`${newUser.fullname} is already added`);
+        }
+        setFriends(newUsers);
       }
-      setFriends(newUsers);
     }
   }, [newUser]);
 
@@ -126,7 +136,7 @@ export default function AddTrip() {
                 addTrip(values);
                 resetForm();
                 setSubmitting(false);
-              }, 1000);
+              }, 500);
             }}
           >
             {/* Callback function containing Formik state and helpers that handle common form actions */}
