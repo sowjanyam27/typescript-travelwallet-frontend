@@ -31,6 +31,9 @@ export default function HomePage() {
     }
   }, [id]);
 
+  if (!token) {
+    history.push("/");
+  }
   //To identify if the trip is group trip or solo trip
   useEffect(() => {
     let object = tripGroups.reduce(
@@ -42,7 +45,9 @@ export default function HomePage() {
 
   useEffect(() => {
     const ids = trips.map((t) => t.tripId);
-    dispatch(fetchTripGroupDetails(ids, token));
+    if (ids.length !== 0) {
+      dispatch(fetchTripGroupDetails(ids, token));
+    }
   }, [trips]);
 
   //console.log("tripGroups:", tripGroups);
