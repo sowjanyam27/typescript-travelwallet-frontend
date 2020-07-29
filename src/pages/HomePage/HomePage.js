@@ -4,8 +4,11 @@ import { useHistory, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Fab from "@material-ui/core/Fab";
+
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
+import AddIcon from "@material-ui/icons/Add";
 
 import { fetchAllTrips } from "../../store/Homepage/actions";
 import { selectUser } from "../../store/user/selectors";
@@ -53,7 +56,7 @@ export default function HomePage() {
   //console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
-      <div className="card">
+      {/*  <div className="card">
         <div className="card-body text-center">
           Add trip
           <button
@@ -64,6 +67,19 @@ export default function HomePage() {
             <strong style={{ fontSize: "2em" }}>+</strong>
           </button>
         </div>
+      </div> */}
+      <div className="mb-5">
+        <span style={{ color: "white" }}>Add trip</span>
+        {/*        <button
+          onClick={() => history.push("/home/addtrip")}
+          type="button"
+          className="btn btn-primary btn-circle btn-md"
+        >
+          <strong style={{ fontSize: "2em" }}>+</strong>
+        </button> */}
+        <Fab color="secondary" className="ml-5" aria-label="add">
+          <AddIcon onClick={() => history.push("/home/addtrip")} />
+        </Fab>{" "}
       </div>
 
       <Container>
@@ -71,7 +87,7 @@ export default function HomePage() {
           {trips.map((trip, i) => {
             const imageName = trip.trip.image.split("/");
             return (
-              <Col xs={5} key={i} className="box">
+              <Col xs={3} key={i} className="box">
                 <Link to={`/home/${trip.tripId}`}>
                   <div className="card text-dark">
                     <img
@@ -83,7 +99,7 @@ export default function HomePage() {
                     <div className="card-body">
                       <h5 className="card-text">
                         {trip.trip.title}
-                        <span style={{ marginLeft: "60%" }}>
+                        <span style={{ marginLeft: "20px" }}>
                           {group[trip.tripId] > 1 ? (
                             <PeopleIcon style={{ color: "purple" }} />
                           ) : (

@@ -114,9 +114,7 @@ export default function AddTrip() {
   console.log("friends:", friends);
   return (
     <div>
-      <Jumbotron style={{ background: "#EED9E7" }}>
-        <h1>Add a New Trip</h1>
-      </Jumbotron>
+      <h1>Add a New Trip</h1>
       <div className="addtrip">
         <Container>
           <Formik

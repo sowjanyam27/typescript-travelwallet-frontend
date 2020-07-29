@@ -67,9 +67,9 @@ export default function TripDetails() {
   return (
     <div className="expense">
       <Container className="cont">
-        <div className="card text-center">
+        <div className="card text-white bg-dark text-center">
           <div className="card-header">
-            <ul className="nav nav-tabs card-header-tabs">
+            <ul className="nav nav-pills card-header-pills">
               <li className="nav-item">
                 <a className="nav-link active" href="#">
                   Expenses
@@ -83,14 +83,17 @@ export default function TripDetails() {
             </ul>
           </div>
           <div className="card-body">
-            <h5 className="card-title">Trip Expenses</h5>
-            <p className="mx-3 text-muted">
+            <h2 className="card-title">Trip Expenses</h2>
+            <p className="mx-3" style={{ textAlign: "center" }}>
               {" "}
               Budget: € {budget}{" "}
               <span className="mx-3">Amount Spent: € {total}</span>
             </p>
             <div className="mt-5">
-              <div className="card" style={{ borderStyle: "none" }}>
+              <div
+                className="card text-white bg-dark"
+                style={{ borderStyle: "none" }}
+              >
                 <ul className="list-group list-group-flush">
                   {expenses.map((expense, i) => {
                     return (
@@ -108,12 +111,13 @@ export default function TripDetails() {
                         )}
                         <li className="list-inline-item">{expense.title}</li>
                         <li className="list-inline-item">€ {expense.amount}</li>
-                        <button
+                        {/*                         <button
                           className="list-buttons"
                           onClick={() => deleteExpense(expense.id)}
                         >
                           <Delete />
-                        </button>
+                        </button> */}
+                        <Delete onClick={() => deleteExpense(expense.id)} />
                       </div>
                     );
                   })}
