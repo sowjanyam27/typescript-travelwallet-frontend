@@ -56,27 +56,8 @@ export default function HomePage() {
   //console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
-      {/*  <div className="card">
-        <div className="card-body text-center">
-          Add trip
-          <button
-            onClick={() => history.push("/home/addtrip")}
-            type="button"
-            className="btn btn-primary btn-circle btn-md"
-          >
-            <strong style={{ fontSize: "2em" }}>+</strong>
-          </button>
-        </div>
-      </div> */}
       <div className="mb-5">
         <span style={{ color: "white" }}>Add trip</span>
-        {/*        <button
-          onClick={() => history.push("/home/addtrip")}
-          type="button"
-          className="btn btn-primary btn-circle btn-md"
-        >
-          <strong style={{ fontSize: "2em" }}>+</strong>
-        </button> */}
         <Fab color="secondary" className="ml-5" aria-label="add">
           <AddIcon onClick={() => history.push("/home/addtrip")} />
         </Fab>{" "}
@@ -93,7 +74,8 @@ export default function HomePage() {
                     <img
                       className="card-img-top"
                       //src={require(`${trip.trip.image}`)}
-                      src={`${staticUrl}/${imageName[1]}`}
+                      //src={`${staticUrl}/${imageName[1]}`}
+                      src={trip.trip.image}
                       alt="Card image"
                     />
                     <div className="card-body">

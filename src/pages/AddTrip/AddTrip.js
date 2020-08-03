@@ -8,6 +8,11 @@ import { Row } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import {
+  fetchPhotos,
+  openUploadWidget,
+} from "../../components/CloudinaryService/CloudinaryService";
+import { CloudinaryContext, Image } from "cloudinary-react";
 
 import { selectToken, selectUser } from "../../store/user/selectors";
 import {
@@ -28,13 +33,14 @@ const validationSchema = Yup.object().shape({
   amount: Yup.number()
     .positive("*amount must be positive")
     .required("*amount is required"),
-  image: Yup.mixed().required(),
+  //imageUrl: Yup.mixed().required(),
 });
 
 export default function AddTrip() {
   const [friends, setFriends] = useState([]);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("Add Friend");
+  const [imageUrl, setImageUrl] = useState("");
   const token = useSelector(selectToken);
 
   const user = useSelector(selectUser);
@@ -57,23 +63,39 @@ export default function AddTrip() {
     //event.preventDefault();
     console.log(
       "image:",
-      values.image,
+      imageUrl,
       "title:",
       values.title,
       "amount:",
       values.amount
     );
 
-    const data = new FormData();
-    data.append("title", values.title);
-    data.append("amount", values.amount);
-    data.append("file", values.image);
-    console.log("data:", data);
-
-    dispatch(postNewTrip(data, token));
+    dispatch(postNewTrip(values.title, values.amount, imageUrl, token));
     //dispatch(postNewTrip(title, amount, image, user.id, token));
   }
+  const beginUpload = (tag) => {
+    const uploadOptions = {
+      cloudName: "geekscloud",
+      tags: [tag],
+      uploadPreset: "upload",
+    };
 
+    openUploadWidget(uploadOptions, (error, photos) => {
+      if (!error) {
+        console.log(photos);
+        if (photos.event === "success") {
+          console.log("photo:", photos.info.url);
+          setImageUrl(photos.info.url);
+        }
+      } else {
+        console.log(error);
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetchPhotos("image", setImageUrl);
+  }, []);
   function finalSubmit(event) {
     event.preventDefault();
     dispatch(addFriendsToTrip(trip.id, friends, user.id, token));
@@ -108,6 +130,7 @@ export default function AddTrip() {
       }
     }
   }, [newUser]);
+  console.log("image:", imageUrl);
 
   console.log("trip:", trip);
   console.log("newUser:", newUser);
@@ -121,10 +144,10 @@ export default function AddTrip() {
             initialValues={{
               title: "",
               amount: "",
-              image: null,
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting, resetForm }) => {
+              console.log("Inside obSumbit", values);
               // When button submits form and form is in the process of submitting, submit button is disabled
               setSubmitting(true);
 
@@ -144,7 +167,6 @@ export default function AddTrip() {
               touched,
               handleChange,
               handleSubmit,
-              setFieldValue,
               isSubmitting,
             }) => (
               <Form
@@ -184,20 +206,22 @@ export default function AddTrip() {
                 </Form.Group>
                 <Form.Group as={Row}>
                   <Form.Label>Image *</Form.Label>
-                  <Form.Control
-                    type="file"
-                    name="image"
-                    id="image"
-                    onChange={(event) =>
-                      setFieldValue("image", event.target.files[0])
-                    }
-                    required
-                    className={touched.image && errors.image && "error"}
-                  />
-
-                  {touched.image && errors.image ? (
-                    <div className="error-message">{errors.image}</div>
-                  ) : null}
+                  <Row>
+                    <Button variant="primary" onClick={() => beginUpload()}>
+                      Upload Image
+                    </Button>
+                  </Row>
+                  {imageUrl && (
+                    <Image
+                      src={imageUrl}
+                      className="img-responsive"
+                      style={{
+                        maxHeight: "25vh",
+                        maxWidth: "35vw",
+                        padding: "10px 0",
+                      }}
+                    />
+                  )}
                 </Form.Group>
 
                 <Form.Group as={Row} className="mt-5">
