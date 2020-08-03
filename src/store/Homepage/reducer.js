@@ -18,6 +18,17 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         tripGroups: payload,
       };
+    case "DELETE_TRIP":
+      const afterDelete = [...state.trips];
+      console.log("beforeDelete:", afterDelete);
+      const after = afterDelete.filter((e) => e.tripId !== payload);
+      console.log("after:", after);
+
+      return {
+        ...state,
+        trips: after,
+      };
+
     default:
       return state;
   }

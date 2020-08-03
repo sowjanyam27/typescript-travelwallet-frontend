@@ -9,14 +9,26 @@ import Fab from "@material-ui/core/Fab";
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
 import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Delete } from "@material-ui/icons";
 
 import { fetchAllTrips } from "../../store/Homepage/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectTripsOfUser } from "../../store/Homepage/selector";
 import { selectToken } from "../../store/user/selectors";
 import { staticUrl } from "../../config/constants";
-import { fetchTripGroupDetails } from "../../store/Homepage/actions";
+import {
+  fetchTripGroupDetails,
+  deleteTripDetails,
+} from "../../store/Homepage/actions";
 import "./HomePage.css";
+
+const options = ["Edit", "Delete"];
+
+const ITEM_HEIGHT = 48;
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -26,6 +38,27 @@ export default function HomePage() {
   const token = useSelector(selectToken);
   const [group, setGroup] = useState({});
   console.log("trips : ", trips);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [tripToChange, setTrip] = useState("");
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenu = (option, num) => {
+    console.log("Hello:", option, num);
+  };
+
+  console.log("tripToChange:", tripToChange);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const deleteTrip = (id) => {
+    console.log("Id,", id);
+    dispatch(deleteTripDetails(id, token));
+  };
 
   //Fetch trips of user (id)
   useEffect(() => {
@@ -66,11 +99,10 @@ export default function HomePage() {
       <Container>
         <Row>
           {trips.map((trip, i) => {
-            const imageName = trip.trip.image.split("/");
             return (
               <Col xs={3} key={i} className="box">
-                <Link to={`/home/${trip.tripId}`}>
-                  <div className="card text-dark">
+                <div className="card text-dark">
+                  <Link to={`/home/${trip.tripId}`}>
                     <img
                       className="card-img-top"
                       //src={require(`${trip.trip.image}`)}
@@ -78,20 +110,59 @@ export default function HomePage() {
                       src={trip.trip.image}
                       alt="Card image"
                     />
-                    <div className="card-body">
-                      <h5 className="card-text">
-                        {trip.trip.title}
-                        <span style={{ marginLeft: "20px" }}>
-                          {group[trip.tripId] > 1 ? (
-                            <PeopleIcon style={{ color: "purple" }} />
-                          ) : (
-                            <PersonIcon style={{ color: "purple" }} />
-                          )}
-                        </span>
-                      </h5>
-                    </div>
+                  </Link>
+
+                  <div className="card-body">
+                    <Row>
+                      <Col>
+                        <h5 className="card-text">{trip.trip.title}</h5>
+                      </Col>
+                      <Col>
+                        {group[trip.tripId] > 1 ? (
+                          <PeopleIcon style={{ color: "purple" }} />
+                        ) : (
+                          <PersonIcon style={{ color: "purple" }} />
+                        )}
+                      </Col>
+                      <Col>
+                        {/*   <IconButton
+                          aria-label="more"
+                          aria-controls="long-menu"
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                          id="long-menu"
+                          anchorEl={anchorEl}
+                          keepMounted
+                          open={open}
+                          onClose={handleClose}
+                          PaperProps={{
+                            style: {
+                              maxHeight: ITEM_HEIGHT * 4.5,
+                              width: "20ch",
+                            },
+                          }}
+                        >
+                          {options.map((option) => {
+                            return (
+                              <MenuItem
+                                key={option}
+                                selected={option === "Edit"}
+                                onClick={() => deleteTrip(trip.tripId)}
+                              >
+                                {option}
+                              </MenuItem>
+                            );
+                          })}
+                        </Menu> */}
+                        <Delete onClick={() => deleteTrip(trip.tripId)} />
+                      </Col>
+                    </Row>
                   </div>
-                </Link>
+                </div>
               </Col>
             );
           })}

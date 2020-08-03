@@ -60,3 +60,16 @@ export function fetchTripGroupDetails(ids, token) {
     dispatch(allTripGroupDetails(output.data));
   };
 }
+
+//API request for posting friends to the trip
+export function deleteTripDetails(id, token) {
+  return async function thunk(dispatch, getState) {
+    const output = await axios.delete(`${apiUrl}/trip/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({
+      type: "DELETE_TRIP",
+      payload: id,
+    });
+  };
+}
