@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import TextLoop from "react-text-loop";
+import { CloudinaryContext } from "cloudinary-react";
 
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
@@ -24,17 +25,19 @@ function App() {
 
   const FrontPage = () => {
     return (
-      <div style={{ height: "700px" }} className="front">
-        <h1 className="text">
-          Travel wallet for
-          <span style={{ paddingLeft: "5px", color: "#93b768" }}>
-            <TextLoop
-              interval={[3000, 1000]}
-              children={["Backpackers", "Families", "nomads"]}
-            />
-          </span>
-        </h1>
-      </div>
+      <CloudinaryContext cloudName="geekscloud">
+        <div style={{ height: "700px" }} className="front">
+          <h1 className="text">
+            Travel wallet for
+            <span style={{ paddingLeft: "5px", color: "#93b768" }}>
+              <TextLoop
+                interval={[3000, 1000]}
+                children={["Backpackers", "Families", "nomads"]}
+              />
+            </span>
+          </h1>
+        </div>
+      </CloudinaryContext>
     );
   };
 

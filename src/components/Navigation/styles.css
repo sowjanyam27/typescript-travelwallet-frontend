@@ -2,3 +2,8 @@
   background-color: black;
   color: white;
 }
+
+NavbarItem {
+  color: white;
+  /* padding-left: 285px; */
+}
