@@ -89,8 +89,8 @@ export default function HomePage() {
   //console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
-      <div className="mb-5">
-        <span style={{ color: "white" }}>Add trip</span>
+      <div className="my-5">
+        <span>Add trip</span>
         <Fab color="secondary" className="ml-5" aria-label="add">
           <AddIcon onClick={() => history.push("/home/addtrip")} />
         </Fab>{" "}
@@ -113,10 +113,8 @@ export default function HomePage() {
                   </Link>
 
                   <div className="card-body">
+                    <h5 className="card-text">{trip.trip.title}</h5>
                     <Row>
-                      <Col>
-                        <h5 className="card-text">{trip.trip.title}</h5>
-                      </Col>
                       <Col>
                         {group[trip.tripId] > 1 ? (
                           <PeopleIcon style={{ color: "purple" }} />
@@ -125,40 +123,10 @@ export default function HomePage() {
                         )}
                       </Col>
                       <Col>
-                        {/*   <IconButton
-                          aria-label="more"
-                          aria-controls="long-menu"
-                          aria-haspopup="true"
-                          onClick={handleClick}
-                        >
-                          <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                          id="long-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={open}
-                          onClose={handleClose}
-                          PaperProps={{
-                            style: {
-                              maxHeight: ITEM_HEIGHT * 4.5,
-                              width: "20ch",
-                            },
-                          }}
-                        >
-                          {options.map((option) => {
-                            return (
-                              <MenuItem
-                                key={option}
-                                selected={option === "Edit"}
-                                onClick={() => deleteTrip(trip.tripId)}
-                              >
-                                {option}
-                              </MenuItem>
-                            );
-                          })}
-                        </Menu> */}
-                        <Delete onClick={() => deleteTrip(trip.tripId)} />
+                        <Delete
+                          className="delete-btn"
+                          onClick={() => deleteTrip(trip.tripId)}
+                        />
                       </Col>
                     </Row>
                   </div>

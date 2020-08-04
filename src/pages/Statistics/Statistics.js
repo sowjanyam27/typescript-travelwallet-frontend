@@ -27,8 +27,10 @@ export default function Statistics() {
   const [dataValues, setData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchAllExpensesSummary(id, token));
-    dispatch(fetchAllUserExpenses(id, token));
+    if (id) {
+      dispatch(fetchAllExpensesSummary(id, token));
+      dispatch(fetchAllUserExpenses(id, token));
+    }
   }, [id]);
 
   useEffect(() => {
@@ -95,7 +97,7 @@ export default function Statistics() {
   //console.log("finalData:", finalData);
   return (
     <div className="stats">
-      <Container className="cont">
+      <Container className="cont bg-dark">
         <div className="card text-white bg-dark text-center">
           <div className="card-header">
             <ul className="nav nav-pills card-header-pills">

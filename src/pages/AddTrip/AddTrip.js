@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Row } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -130,11 +130,11 @@ export default function AddTrip() {
       }
     }
   }, [newUser]);
-  console.log("image:", imageUrl);
+  /*   console.log("image:", imageUrl);
 
   console.log("trip:", trip);
   console.log("newUser:", newUser);
-  console.log("friends:", friends);
+  console.log("friends:", friends); */
   return (
     <div>
       <h1>Add a New Trip</h1>
@@ -205,35 +205,35 @@ export default function AddTrip() {
                   ) : null}
                 </Form.Group>
                 <Form.Group as={Row}>
-                  <Form.Label>Image *</Form.Label>
                   <Row>
-                    <Button variant="primary" onClick={() => beginUpload()}>
-                      Upload Image
-                    </Button>
+                    <Col>
+                      <Button variant="secondary" onClick={() => beginUpload()}>
+                        Upload Image
+                      </Button>
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          className="img-responsive"
+                          style={{
+                            maxHeight: "25vh",
+                            maxWidth: "35vw",
+                            padding: "10px 0",
+                          }}
+                        />
+                      )}
+                    </Col>
+                    <Col>
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        style={{ background: "#6B9DAC", width: "130px" }}
+                        disabled={isSubmitting}
+                      >
+                        Add Trip
+                      </Button>
+                      <MessageBox />
+                    </Col>
                   </Row>
-                  {imageUrl && (
-                    <Image
-                      src={imageUrl}
-                      className="img-responsive"
-                      style={{
-                        maxHeight: "25vh",
-                        maxWidth: "35vw",
-                        padding: "10px 0",
-                      }}
-                    />
-                  )}
-                </Form.Group>
-
-                <Form.Group as={Row} className="mt-5">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    style={{ background: "#6B9DAC", width: "130px" }}
-                    disabled={isSubmitting}
-                  >
-                    Add Trip
-                  </Button>
-                  <MessageBox />
                 </Form.Group>
               </Form>
             )}

@@ -72,3 +72,7 @@ img:hover {
 .PeopleIcon:hover ~ #group {
   display: block;
 }
+
+.delete-btn {
+  float: right;
+}

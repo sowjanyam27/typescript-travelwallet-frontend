@@ -153,16 +153,21 @@
     U+FEFF, U+FFFD;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&display=swap");
+
 .App {
   height: 100%;
   width: 100%;
-  background-color: #343a40;
-  font-family: "Josefin Slab";
+  /*   background-color: #343a40;
+ */
+  font-family: "PT Serif", serif;
+
   color: black;
 }
 
 .front {
-  background-image: url(../src/images/background.jpeg);
+  background-image: url(../src/images/bag.jpeg);
   background-size: cover;
   background-position: center;
   position: relative;
@@ -170,34 +175,26 @@
 
 .text {
   left: 0;
+  color: white;
   line-height: 200px;
   margin-top: -100px;
   position: absolute;
   text-align: center;
   top: 40%;
   width: 100%;
-  color: white;
-  font-weight: bold;
+  font-family: "Rowdies", cursive;
 }
 
 h1 {
-  font-family: "Amatic SC";
   font-weight: 700;
-  color: white;
   text-align: center;
 }
 
 h2 {
-  font-family: "Josefin Slab";
   text-align: center;
 }
 
 h5 {
-  font-family: "Josefin Slab";
   text-align: center;
   font-weight: 700;
-}
-
-p {
-  font-family: "Josefin Slab";
 }

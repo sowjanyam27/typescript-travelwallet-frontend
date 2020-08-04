@@ -66,7 +66,7 @@ export default function TripDetails() {
 
   return (
     <div className="expense">
-      <Container className="cont">
+      <Container className="cont bg-dark ">
         <div className="card text-white bg-dark text-center">
           <div className="card-header">
             <ul className="nav nav-pills card-header-pills">
