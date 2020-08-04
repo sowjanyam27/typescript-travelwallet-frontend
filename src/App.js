@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import TextLoop from "react-text-loop";
+import { CloudinaryContext } from "cloudinary-react";
 
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
@@ -27,7 +28,12 @@ function App() {
       <div style={{ height: "700px" }} className="front">
         <h1 className="text">
           Travel wallet for
-          <span style={{ paddingLeft: "5px", color: "#93b768" }}>
+          <span
+            style={{
+              paddingLeft: "5px",
+              color: "rgb(197, 53, 8)",
+            }}
+          >
             <TextLoop
               interval={[3000, 1000]}
               children={["Backpackers", "Families", "nomads"]}
@@ -43,22 +49,24 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
-      <Navigation />
-      <MessageBox />
-      {isLoading ? <Loading /> : null}
-      <Switch>
-        <Route path="/trip/statistics/:id" component={Statistics} />
-        <Route path="/home/addtrip" component={AddTrip} />
-        <Route path="/trip/addexpense" component={AddExpense} />
-        <Route path="/trip/addexpense/:id" component={AddExpense} />
-        <Route path="/home/:id" component={TripDetails} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/login" component={Login} />
-        <Route path="/" component={FrontPage} />
-      </Switch>
-    </div>
+    <CloudinaryContext cloudName="geekscloud">
+      <div className="App">
+        <Navigation />
+        <MessageBox />
+        {isLoading ? <Loading /> : null}
+        <Switch>
+          <Route path="/trip/statistics/:id" component={Statistics} />
+          <Route path="/home/addtrip" component={AddTrip} />
+          <Route path="/trip/addexpense" component={AddExpense} />
+          <Route path="/trip/addexpense/:id" component={AddExpense} />
+          <Route path="/home/:id" component={TripDetails} />
+          <Route path="/home" component={HomePage} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
+          <Route path="/" component={FrontPage} />
+        </Switch>
+      </div>
+    </CloudinaryContext>
   );
 }
 

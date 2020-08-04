@@ -27,8 +27,10 @@ export default function Statistics() {
   const [dataValues, setData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchAllExpensesSummary(id, token));
-    dispatch(fetchAllUserExpenses(id, token));
+    if (id) {
+      dispatch(fetchAllExpensesSummary(id, token));
+      dispatch(fetchAllUserExpenses(id, token));
+    }
   }, [id]);
 
   useEffect(() => {
@@ -95,10 +97,10 @@ export default function Statistics() {
   //console.log("finalData:", finalData);
   return (
     <div className="stats">
-      <Container className="cont">
-        <div className="card text-center">
+      <Container className="cont bg-dark">
+        <div className="card text-white bg-dark text-center">
           <div className="card-header">
-            <ul className="nav nav-tabs card-header-tabs">
+            <ul className="nav nav-pills card-header-pills">
               <li className="nav-item">
                 <Link className="nav-link" to={`/home/${id}`}>
                   Expenses
@@ -113,19 +115,22 @@ export default function Statistics() {
           </div>
           <div className="card-body">
             {expensesSummary.length !== 0 ? (
-              <h5 className="card-title">Statistics of the Trip</h5>
+              <h2 className="card-title">Statistics of the Trip</h2>
             ) : (
-              <h5 className="card-title">No Expenses for the trip </h5>
+              <h2 className="card-title">No Expenses for the trip </h2>
             )}
 
             <div className="piechart">
               <Pie data={finalData} />
             </div>
 
-            <div className="card-body">
+            <div className="card-body text-white bg-dark">
               <div className="mt-5">
                 {userExpenses.length > 1 ? (
-                  <div className="card" style={{ borderStyle: "none" }}>
+                  <div
+                    className="card text-white bg-dark"
+                    style={{ borderStyle: "none" }}
+                  >
                     <ul
                       className="list-group list-group-flush"
                       style={{ fontWeight: "bold" }}

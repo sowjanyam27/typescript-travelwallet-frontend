@@ -32,6 +32,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         newUser: payload,
       };
+
     default:
       return state;
   }

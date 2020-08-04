@@ -16,13 +16,16 @@ export function addUser(data) {
 }
 
 //API request for posting new trip
-export function postNewTrip(data, token) {
-  console.log("data in action:", data);
+export function postNewTrip(title, amount, image, token) {
   return async function thunk(dispatch, getState) {
     axios
-      .post(`${apiUrl}/trip`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post(
+        `${apiUrl}/trip`,
+        { title, amount, image },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => dispatch(addTrip(res.data)))
       .catch((err) => console.log(err));
   };

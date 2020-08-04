@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Piedra&display=swap");
 
+.Homepage {
+  text-align: center;
+}
+
 .fit-image {
   margin-top: 15%;
   width: 80%;
@@ -55,4 +59,20 @@ img {
 
 img:hover {
   opacity: 1;
+}
+
+.card-body {
+  text-align: left;
+}
+
+#group {
+  display: none;
+}
+
+.PeopleIcon:hover ~ #group {
+  display: block;
+}
+
+.delete-btn {
+  float: right;
 }

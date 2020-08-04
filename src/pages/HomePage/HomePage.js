@@ -4,16 +4,31 @@ import { useHistory, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Fab from "@material-ui/core/Fab";
+
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Delete } from "@material-ui/icons";
 
 import { fetchAllTrips } from "../../store/Homepage/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectTripsOfUser } from "../../store/Homepage/selector";
 import { selectToken } from "../../store/user/selectors";
 import { staticUrl } from "../../config/constants";
-import { fetchTripGroupDetails } from "../../store/Homepage/actions";
+import {
+  fetchTripGroupDetails,
+  deleteTripDetails,
+} from "../../store/Homepage/actions";
 import "./HomePage.css";
+
+const options = ["Edit", "Delete"];
+
+const ITEM_HEIGHT = 48;
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -23,6 +38,27 @@ export default function HomePage() {
   const token = useSelector(selectToken);
   const [group, setGroup] = useState({});
   console.log("trips : ", trips);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [tripToChange, setTrip] = useState("");
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenu = (option, num) => {
+    console.log("Hello:", option, num);
+  };
+
+  console.log("tripToChange:", tripToChange);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const deleteTrip = (id) => {
+    console.log("Id,", id);
+    dispatch(deleteTripDetails(id, token));
+  };
 
   //Fetch trips of user (id)
   useEffect(() => {
@@ -53,47 +89,48 @@ export default function HomePage() {
   //console.log("tripGroups:", tripGroups);
   return (
     <div className="Homepage">
-      <div className="card">
-        <div className="card-body text-center">
-          Add trip
-          <button
-            onClick={() => history.push("/home/addtrip")}
-            type="button"
-            className="btn btn-primary btn-circle btn-md"
-          >
-            <strong style={{ fontSize: "2em" }}>+</strong>
-          </button>
-        </div>
+      <div className="my-5">
+        <span>Add trip</span>
+        <Fab color="secondary" className="ml-5" aria-label="add">
+          <AddIcon onClick={() => history.push("/home/addtrip")} />
+        </Fab>{" "}
       </div>
 
       <Container>
         <Row>
           {trips.map((trip, i) => {
-            const imageName = trip.trip.image.split("/");
             return (
-              <Col xs={5} key={i} className="box">
-                <Link to={`/home/${trip.tripId}`}>
-                  <div className="card text-dark">
+              <Col xs={3} key={i} className="box">
+                <div className="card text-dark">
+                  <Link to={`/home/${trip.tripId}`}>
                     <img
                       className="card-img-top"
                       //src={require(`${trip.trip.image}`)}
-                      src={`${staticUrl}/${imageName[1]}`}
+                      //src={`${staticUrl}/${imageName[1]}`}
+                      src={trip.trip.image}
                       alt="Card image"
                     />
-                    <div className="card-body">
-                      <h5 className="card-text">
-                        {trip.trip.title}
-                        <span style={{ marginLeft: "60%" }}>
-                          {group[trip.tripId] > 1 ? (
-                            <PeopleIcon style={{ color: "purple" }} />
-                          ) : (
-                            <PersonIcon style={{ color: "purple" }} />
-                          )}
-                        </span>
-                      </h5>
-                    </div>
+                  </Link>
+
+                  <div className="card-body">
+                    <h5 className="card-text">{trip.trip.title}</h5>
+                    <Row>
+                      <Col>
+                        {group[trip.tripId] > 1 ? (
+                          <PeopleIcon style={{ color: "purple" }} />
+                        ) : (
+                          <PersonIcon style={{ color: "purple" }} />
+                        )}
+                      </Col>
+                      <Col>
+                        <Delete
+                          className="delete-btn"
+                          onClick={() => deleteTrip(trip.tripId)}
+                        />
+                      </Col>
+                    </Row>
                   </div>
-                </Link>
+                </div>
               </Col>
             );
           })}
