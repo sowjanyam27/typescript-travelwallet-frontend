@@ -9,22 +9,22 @@ import Fab from "@material-ui/core/Fab";
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
 import AddIcon from "@material-ui/icons/Add";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Delete } from "@material-ui/icons";
 
 import { fetchAllTrips } from "../../store/Homepage/actions";
 import { selectUser } from "../../store/user/selectors";
-import { selectTripsOfUser } from "../../store/Homepage/selector";
+import {
+  selectTripsOfUser,
+  selectTripGroups,
+} from "../../store/Homepage/selector";
 import { selectToken } from "../../store/user/selectors";
-import { staticUrl } from "../../config/constants";
+
 import {
   fetchTripGroupDetails,
   deleteTripDetails,
 } from "../../store/Homepage/actions";
 import "./HomePage.css";
+import { Trips, TripGroups, DefaultGroup } from "../../types/tripdetails";
 
 const options = ["Edit", "Delete"];
 
@@ -33,29 +33,19 @@ const ITEM_HEIGHT = 48;
 export default function HomePage() {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUser);
-  const { trips, tripGroups } = useSelector(selectTripsOfUser);
+  const trips: Trips[] = useSelector(selectTripsOfUser);
+  const tripGroups: TripGroups[] = useSelector(selectTripGroups);
   const history = useHistory();
   const token = useSelector(selectToken);
-  const [group, setGroup] = useState({});
+  const [group, setGroup] = useState<DefaultGroup>({});
   console.log("trips : ", trips);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [tripToChange, setTrip] = useState("");
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenu = (option, num) => {
-    console.log("Hello:", option, num);
-  };
 
   console.log("tripToChange:", tripToChange);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const deleteTrip = (id) => {
+  const deleteTrip = (id: number) => {
     console.log("Id,", id);
     dispatch(deleteTripDetails(id, token));
   };
@@ -70,12 +60,21 @@ export default function HomePage() {
   if (!token) {
     history.push("/");
   }
+
   //To identify if the trip is group trip or solo trip
   useEffect(() => {
-    let object = tripGroups.reduce(
+    /*   let object = tripGroups.reduce(
       (obj, item) => ((obj[item.tripId] = parseInt(item.n_tripId)), obj),
       {}
+    );  */
+
+    let object = tripGroups.reduce(
+      (obj: { [key: number]: number }, item) => (
+        (obj[item.tripId] = item.n_tripId), obj
+      ),
+      {}
     );
+
     setGroup(object);
   }, [tripGroups]);
 
