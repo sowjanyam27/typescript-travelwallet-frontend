@@ -12,7 +12,7 @@ import { selectToken } from "../../store/user/selectors";
 import MessageBox from "../../components/MessageBox/index";
 import { selectUsersofTrips } from "../../store/Homepage/selector";
 import { postNewExpense } from "../../store/AddExpense/actions";
-import { Friend, ValueTypes } from "../../types/tripdetails";
+import { Friend, ExpenseValueTypes } from "../../types/tripdetails";
 
 // Schema for yup
 const validationSchema = Yup.object().shape({
@@ -39,14 +39,14 @@ export default function AddExpense() {
   //console.log("friends:", friends);
   const dispatch = useDispatch();
   const history = useHistory();
-  const initValues: ValueTypes = {
+  const initValues: ExpenseValueTypes = {
     title: "",
     amount: 0,
     expenseType: 5,
     spentBy: "",
     sharedBy: [],
   };
-  function submitForm(values: ValueTypes) {
+  function submitForm(values: ExpenseValueTypes) {
     // event.preventDefault();
     console.log(
       "Details",

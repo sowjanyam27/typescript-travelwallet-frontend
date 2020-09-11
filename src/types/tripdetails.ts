@@ -32,7 +32,7 @@ export type Friend = {
   trip: Trip;
 };
 
-export type ValueTypes = {
+export type ExpenseValueTypes = {
   title: string;
   amount: number;
   expenseType: number;
@@ -40,10 +40,13 @@ export type ValueTypes = {
   sharedBy: number[];
 };
 
-export type InitialValueTypes = {
+export type TripValueTypes = {
   title: string;
   amount: number;
-  expenseType: number;
-  spentBy: string;
-  sharedBy: number[];
+};
+
+export type FriendTypes = {
+  id: number;
+  email: string;
+  fullname: string;
 };

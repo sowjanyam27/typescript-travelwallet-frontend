@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -23,6 +22,7 @@ import {
 import MessageBox from "../../components/MessageBox/index";
 import "./AddTrip.css";
 import { selectNewTrip } from "../../store/Addtrip/selectors";
+import { TripValueTypes, FriendTypes } from "../../types/tripdetails";
 
 // Schema for yup
 const validationSchema = Yup.object().shape({
@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function AddTrip() {
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState<FriendTypes[]>([]);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("Add Friend");
   const [imageUrl, setImageUrl] = useState("");
@@ -59,7 +59,7 @@ export default function AddTrip() {
     }
   };
 
-  function addTrip(values) {
+  function addTrip(values: TripValueTypes) {
     //event.preventDefault();
     console.log(
       "image:",
@@ -73,14 +73,14 @@ export default function AddTrip() {
     dispatch(postNewTrip(values.title, values.amount, imageUrl, token));
     //dispatch(postNewTrip(title, amount, image, user.id, token));
   }
-  const beginUpload = (tag) => {
+  const beginUpload = (tag: string) => {
     const uploadOptions = {
       cloudName: "geekscloud",
       tags: [tag],
       uploadPreset: "upload",
     };
 
-    openUploadWidget(uploadOptions, (error, photos) => {
+    openUploadWidget(uploadOptions, (error: any, photos: any) => {
       if (!error) {
         console.log(photos);
         if (photos.event === "success") {
@@ -96,7 +96,7 @@ export default function AddTrip() {
   useEffect(() => {
     fetchPhotos("image", setImageUrl);
   }, []);
-  function finalSubmit(event) {
+  function finalSubmit(event: any) {
     event.preventDefault();
     dispatch(addFriendsToTrip(trip.id, friends, user.id, token));
     //Once trip is created in the table CLEAR_TRIP is for clearing the old data.
@@ -143,10 +143,13 @@ export default function AddTrip() {
           <Formik
             initialValues={{
               title: "",
-              amount: "",
+              amount: 0,
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
+            onSubmit={(
+              values: TripValueTypes,
+              { setSubmitting, resetForm }
+            ) => {
               console.log("Inside obSumbit", values);
               // When button submits form and form is in the process of submitting, submit button is disabled
               setSubmitting(true);
@@ -169,11 +172,7 @@ export default function AddTrip() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form
-                md={{ span: 6, offset: 3 }}
-                onSubmit={handleSubmit}
-                className="mt-5"
-              >
+              <Form onSubmit={handleSubmit} className="mt-5">
                 <Form.Group as={Row}>
                   <Form.Label>Title *</Form.Label>
                   <Form.Control
@@ -182,7 +181,6 @@ export default function AddTrip() {
                     name="title"
                     type="text"
                     placeholder="Enter title.."
-                    className={touched.title && errors.title && "error"}
                   />
                   {touched.title && errors.title ? (
                     <div className="error-message">{errors.title}</div>
@@ -198,7 +196,6 @@ export default function AddTrip() {
                     min="0"
                     name="amount"
                     onChange={handleChange}
-                    className={touched.amount && errors.amount && "error"}
                   />
                   {touched.amount && errors.amount ? (
                     <div className="error-message">{errors.amount}</div>
@@ -207,7 +204,10 @@ export default function AddTrip() {
                 <Form.Group as={Row}>
                   <Row>
                     <Col>
-                      <Button variant="secondary" onClick={() => beginUpload()}>
+                      <Button
+                        variant="secondary"
+                        onClick={() => beginUpload("image")}
+                      >
                         Upload Image
                       </Button>
                       {imageUrl && (
