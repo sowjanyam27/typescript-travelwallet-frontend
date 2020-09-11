@@ -22,7 +22,7 @@ export default function SignUp() {
     }
   }, [token, history]);
 
-  function submitForm(event) {
+  function submitForm(event: any) {
     event.preventDefault();
 
     dispatch(signUp(name, email, password));
