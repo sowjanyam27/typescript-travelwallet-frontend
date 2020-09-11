@@ -1,10 +1,8 @@
 import React from "react";
-import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import currency from "currency.js";
 import { Formik, FieldArray } from "formik";
@@ -12,9 +10,9 @@ import * as Yup from "yup";
 
 import { selectToken } from "../../store/user/selectors";
 import MessageBox from "../../components/MessageBox/index";
-import "./AddExpense.css";
 import { selectUsersofTrips } from "../../store/Homepage/selector";
 import { postNewExpense } from "../../store/AddExpense/actions";
+import { Friend, ValueTypes } from "../../types/tripdetails";
 
 // Schema for yup
 const validationSchema = Yup.object().shape({
@@ -30,14 +28,25 @@ const validationSchema = Yup.object().shape({
   sharedBy: Yup.array(),
 });
 
+type mdType = {
+  span: number;
+  offset: number;
+};
+
 export default function AddExpense() {
-  const friends = useSelector(selectUsersofTrips);
+  const friends: Friend[] = useSelector(selectUsersofTrips);
   const token = useSelector(selectToken);
   //console.log("friends:", friends);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  function submitForm(values) {
+  const initValues: ValueTypes = {
+    title: "",
+    amount: 0,
+    expenseType: 5,
+    spentBy: "",
+    sharedBy: [],
+  };
+  function submitForm(values: ValueTypes) {
     // event.preventDefault();
     console.log(
       "Details",
@@ -67,13 +76,7 @@ export default function AddExpense() {
       <h1 className="mt-4">Add a New Expense</h1>
       <Container>
         <Formik
-          initialValues={{
-            title: "",
-            amount: 0,
-            expenseType: 5,
-            spentBy: "",
-            sharedBy: [],
-          }}
+          initialValues={initValues}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
@@ -94,7 +97,7 @@ export default function AddExpense() {
             isSubmitting,
           }) => (
             <Form
-              md={{ span: 6, offset: 3 }}
+              /* md={{ span: 6, offset : 3 }} */
               onSubmit={handleSubmit}
               className="mt-5"
             >
@@ -107,7 +110,6 @@ export default function AddExpense() {
                   name="title"
                   type="text"
                   placeholder="Enter title.."
-                  className={touched.title && errors.title && "error"}
                 />
                 {touched.title && errors.title ? (
                   <div className="error-message">{errors.title}</div>
@@ -124,7 +126,6 @@ export default function AddExpense() {
                   min="0"
                   name="amount"
                   onChange={handleChange}
-                  className={touched.title && errors.title && "error"}
                 />
                 {touched.amount && errors.amount ? (
                   <div className="error-message">{errors.amount}</div>
@@ -162,7 +163,7 @@ export default function AddExpense() {
                       onChange={handleChange}
                     >
                       <option value="" label="Paid by" />
-                      {friends.map((f, i) => (
+                      {friends.map((f, i: number) => (
                         <option
                           key={i}
                           value={f.user.id}
@@ -180,7 +181,7 @@ export default function AddExpense() {
                       name="sharedBy"
                       render={(arrayHelpers) => (
                         <div>
-                          {friends.map((f, i) => (
+                          {friends.map((f, i: number) => (
                             <div key={i}>
                               <label>
                                 <input
