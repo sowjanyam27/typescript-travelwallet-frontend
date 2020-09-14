@@ -1,4 +1,7 @@
+import { UserType } from "./user";
+
 export type Trip = {
+  id: number;
   budget: number;
   image: string;
   title: string;
@@ -49,4 +52,10 @@ export type FriendTypes = {
   id: number;
   email: string;
   fullname: string;
+};
+
+export type TripUsersType = {
+  id: number;
+  trip: Trip;
+  user: UserType;
 };

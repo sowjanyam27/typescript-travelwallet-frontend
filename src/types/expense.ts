@@ -1,3 +1,5 @@
+import { NumberLocale } from "yup";
+
 export type ExpenseTypes = {
   id: number;
   title: string;
@@ -31,3 +33,11 @@ export type FinalDataTypes = {
 export interface RouteParams {
   id: string;
 }
+
+export type TypesExpenses = {
+  amount: number;
+  expensetypeId: number;
+  id: number;
+  title: string;
+  tripId: number;
+};

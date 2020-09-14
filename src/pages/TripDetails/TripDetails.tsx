@@ -16,6 +16,8 @@ import {
   Notes,
   Delete,
 } from "@material-ui/icons";
+import { TripUsersType } from "../../types/tripdetails";
+import { TypesExpenses } from "../../types/expense";
 
 import "./Tripdetails.css";
 import { fetchAllUsersforTrip } from "../../store/Homepage/actions";
@@ -26,12 +28,14 @@ export default function TripDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-  const { expenses } = useSelector(selectExpenses);
+  const { expenses }: { expenses: TypesExpenses[] } = useSelector(
+    selectExpenses
+  );
   const [total, setTotal] = useState(0);
   const [budget, setBudget] = useState(0);
   const history = useHistory();
   const { trip } = useSelector(selectNewTrip);
-  const tripUsers = useSelector(selectUsersofTrips);
+  const tripUsers: TripUsersType[] = useSelector(selectUsersofTrips);
 
   console.log("tripUsers:", tripUsers);
 
@@ -40,7 +44,7 @@ export default function TripDetails() {
     dispatch(fetchAllUsersforTrip(id, token));
   }, [id]);
 
-  const deleteExpense = (id) => {
+  const deleteExpense = (id: number) => {
     dispatch(deleteExpenseDetails(id));
   };
 
