@@ -13,18 +13,33 @@ import { selectExpenses } from "../../store/AddExpense/selector";
 import "../TripDetails/Tripdetails.css";
 import "./Statistics.css";
 import { createEmail } from "../../store/Email/action";
+import {
+  ExpenseSummaryTypes,
+  UserExpensesTypes,
+  ExpenseTypes,
+  FinalDataTypes,
+  RouteParams,
+} from "../../types/expense";
 
 export default function Statistics() {
-  const { id } = useParams();
+  const { id } = useParams<RouteParams>();
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
-  const { expenseTypes } = useSelector(selectExpenses);
-  const { expensesSummary } = useSelector(selectExpenses);
-  const { userExpenses } = useSelector(selectExpenses);
+  const { expenseTypes }: { expenseTypes: ExpenseTypes[] } = useSelector(
+    selectExpenses
+  );
+  const {
+    expensesSummary,
+  }: { expensesSummary: ExpenseSummaryTypes[] } = useSelector(selectExpenses);
+
+  const { userExpenses }: { userExpenses: UserExpensesTypes[] } = useSelector(
+    selectExpenses
+  );
+
   const { fullname } = useSelector(selectUser);
-  const [labelValues, setLabels] = useState([]);
-  const [finalData, setFinalData] = useState({});
-  const [dataValues, setData] = useState([]);
+  const [labelValues, setLabels] = useState<(string | undefined)[]>([]);
+  const [finalData, setFinalData] = useState<FinalDataTypes>();
+  const [dataValues, setData] = useState<number[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -48,7 +63,7 @@ export default function Statistics() {
     console.log("types:", types);
     if (types[0] !== undefined) {
       // with aggregated types get the aggregated titles
-      const titles = types.map((l) => l.title);
+      const titles = types.map((l) => l?.title);
       setLabels(titles);
       setData(values);
     }
