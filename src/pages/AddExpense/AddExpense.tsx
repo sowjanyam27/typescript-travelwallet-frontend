@@ -35,7 +35,7 @@ type mdType = {
 export default function AddExpense() {
   const friends: Friend[] = useSelector(selectUsersofTrips);
   const token = useSelector(selectToken);
-  //console.log("friends:", friends);
+  console.log("friends:", friends);
   const dispatch = useDispatch();
   const history = useHistory();
   const initValues: ExpenseValueTypes = {
@@ -63,12 +63,13 @@ export default function AddExpense() {
         values.amount,
         values.expenseType,
         values.sharedBy,
-        values.spentBy ? parseInt(values.spentBy) : friends[0].userId,
-        friends[0].tripId,
+        values.spentBy ? parseInt(values.spentBy) : friends[0].user.id,
+        friends[0].trip.id,
         token
       )
     );
-    history.push(`/home/${friends[0].tripId}`);
+    console.log("tripId:", friends[0].trip.id, typeof friends[0].trip.id);
+    history.push(`/home/${friends[0].trip.id}`);
   }
   //console.log("friends:", friends);
   return (

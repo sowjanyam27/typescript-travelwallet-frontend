@@ -29,8 +29,7 @@ type User = {
 };
 
 export type Friend = {
-  userId: number;
-  tripId: number;
+  id: number;
   user: User;
   trip: Trip;
 };
