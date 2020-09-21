@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
-import currency from "currency.js";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 
@@ -55,12 +54,13 @@ export default function AddExpense() {
       values.expenseType,
       values.sharedBy,
       "spentBy:",
-      values.spentBy
+      values.spentBy,
+      token
     );
     dispatch(
       postNewExpense(
         values.title,
-        currency(values.amount),
+        values.amount,
         values.expenseType,
         values.sharedBy,
         values.spentBy ? parseInt(values.spentBy) : friends[0].userId,
@@ -142,11 +142,11 @@ export default function AddExpense() {
                   onChange={handleChange}
                 >
                   <option label="select" />
-                  <option value="1" label="Food" />
-                  <option value="2" label="Transport" />
-                  <option value="3" label="accommodation" />
-                  <option value="4" label="shopping" />
-                  <option value="5" label="Other" />
+                  <option value={1} label="Food" />
+                  <option value={2} label="Transport" />
+                  <option value={3} label="accommodation" />
+                  <option value={4} label="shopping" />
+                  <option value={5} label="Other" />
                 </Form.Control>
                 {errors.expenseType && touched.expenseType && (
                   <div className="input-feedback">{errors.expenseType}</div>

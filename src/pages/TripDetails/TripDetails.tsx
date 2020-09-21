@@ -45,7 +45,7 @@ export default function TripDetails() {
   }, [id]);
 
   const deleteExpense = (id: number) => {
-    dispatch(deleteExpenseDetails(id));
+    dispatch(deleteExpenseDetails(id, token));
   };
 
   useEffect(() => {
